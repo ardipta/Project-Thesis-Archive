@@ -28,7 +28,7 @@
 		</div>
 		<div class="clear"></div>
 	</div>
-
+    {% include 'partials/_alerts.html' %}
 	<div class="register-full">
 		<div class="register-left">
 			<div class="register">
@@ -38,13 +38,16 @@
 			</div>
 		</div>
 		<div class="register-right">
-			<div class="register-in">
-				<a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog2">register here »</a>
-			</div>
 			<div class="register-in middle">
+				<a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog2">Teacher register here »</a>
+			</div>
+            <div class="register-in">
+				<a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog3">Student register here »</a>
+			</div>
+			<div class="register-in">
 				<a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog">Student login here »</a>
 			</div>
-			<div class="register-in">
+			<div class="register-in middle">
 				<a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog1">Teacher login here »</a>
 			</div>
 			<div class="clear"> </div>
@@ -62,25 +65,7 @@
 <!-- student login form popup-->
 <div class="pop-up">
 	<div id="small-dialog" class="mfp-hide book-form">
-
-		<div class="login-form login-form-left">
-			<div class="agile-row">
-				<h3>Login as a student</h3>
-				<span class="fa fa-lock"></span>
-				<div class="clear"></div>
-				<div class="login-agileits-top">
-					<form action="#" method="post">
-						<input type="text" class="name" name="user name" Placeholder="Email" required=""/>
-						<input type="password" class="password" name="Password" Placeholder="Password" required=""/>
-						<input type="submit" value="Login" disabled="true">
-					</form>
-				</div>
-				<div class="login-agileits-bottom">
-					<h6><a href="#">Forgot password?</a></h6>
-				</div>
-			</div>
-		</div>
-
+		{% include 'authentications/student_login.html' %}
 	</div>
 </div>
 <!-- //student login form popup-->
@@ -88,54 +73,26 @@
 <!-- teacher login form popup-->
 <div class="pop-up">
 	<div id="small-dialog1" class="mfp-hide book-form">
-
-		<div class="login-form login-form-left">
-			<div class="agile-row">
-				<h3>Login as a teacher</h3>
-				<span class="fa fa-lock"></span>
-				<div class="clear"></div>
-				<div class="login-agileits-top">
-					<form action="#" method="post">
-						<input type="text" class="name" name="user name" Placeholder="Email" required=""/>
-						<input type="password" class="password" name="Password" Placeholder="Password" required=""/>
-						<input type="submit" value="Login" disabled="true">
-					</form>
-				</div>
-				<div class="login-agileits-bottom">
-					<h6><a href="#">Forgot password?</a></h6>
-				</div>
-			</div>
-		</div>
-
+        {% include 'authentications/teacher_login.html' %}
 	</div>
 </div>
 <!-- //teacher login  form popup-->
 
-<!-- register form popup-->
+<!--Teacher register form popup-->
 <div class="pop-up">
 	<div id="small-dialog2" class="mfp-hide book-form">
-
-		<div class="login-form login-form-left">
-			<div class="agile-row">
-				<h3>Register form</h3>
-				<div class="login-agileits-top">
-					<form action="#" method="post">
-						<input type="text" class="name" name="name" Placeholder="Full Name" required=""/>
-						<input type="email" class="email" name="email" Placeholder="Email" required=""/>
-						<input type="text" class="phone" name="phone" Placeholder="Phone Number" required=""/>
-						<input type="password" class="password" name="password" Placeholder="Password" required=""/>
-						<div class="login-check">
-							<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i> I Accept to the <a href="#">Terms &amp; Conditions</a></label>
-						</div>
-						<input type="submit" value="Register">
-					</form>
-				</div>
-			</div>
-		</div>
-
+        {% include 'authentications/teacher_reg.html' %}
 	</div>
 </div>
-<!-- //register form popup-->
+<!-- //Teacher register form popup-->
+<!--Student register form popup-->
+<div class="pop-up">
+	<div id="small-dialog3" class="mfp-hide book-form">
+        {% include 'authentications/student_reg.html' %}
+	</div>
+</div>
+<!-- //Student register form popup-->
+
 
 <!-- js -->
 <script type="text/javascript" src="{% static 'js/jquery-2.1.4.min.js' %}"></script>

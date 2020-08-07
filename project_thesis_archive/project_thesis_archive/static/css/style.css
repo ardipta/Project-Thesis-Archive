@@ -133,11 +133,10 @@ p{
     box-shadow: 0px 0px 2px 1px rgba(253, 249, 249, 0.75);
 }
 .register-in {
-    padding: 3em;
+    padding: 1em;
 }
 .register-in.middle {
-    padding: 0;
-    padding-left: 3em;
+    padding: 1em;
 }
 .register-left{
     width: 60%;
