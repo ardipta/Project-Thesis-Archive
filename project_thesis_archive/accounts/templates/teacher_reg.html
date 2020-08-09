@@ -1,0 +1,58 @@
+{% load static %}
+{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- Google fonts -->
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
+    <!-- Google fonts -->
+    <link href="{% static 'css/style-auth.css' %}" type="text/css" rel="stylesheet" media="all">
+</head>
+<body>
+<!-- main -->
+<div class="main-w3layouts wrapper">
+    <h1>Teacher Register form</h1>
+    <div class="main-agileinfo">
+        <div class="agileits-top">
+            <form action="#" method="post">
+            {% csrf_token %}
+                <input class="text" type="text" name="username" placeholder="Username" required="">
+                <input class="text email" type="email" name="email" placeholder="Email" required="">
+                <input class="text number" type="text"  name="employee_id" Placeholder="Employee ID" required=""/>
+                <input class="text" type="password" name="password1" placeholder="Password" required="">
+                <input class="text w3lpass" type="password" name="password2" placeholder="Confirm Password" required="">
+                <div class="wthree-text">
+                    <label class="anim">
+                        <input type="checkbox" class="checkbox" required="">
+                        <span>I Agree To The Terms & Conditions</span>
+                    </label>
+                    <div class="clear"> </div>
+                </div>
+                <input type="submit" value="SIGNUP">
+                  {% for field in teacher_reg_form %}
+                      <p>
+                        {% for error in field.errors %}
+                          <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                      </p>
+                  {% endfor %}
+                  {% if teacher_reg_form.non_field_errors %}
+                    <div style="color: red">
+                      <p>{{teacher_reg_form.non_field_errors}}</p>
+                    </div>
+                  {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+<!-- //main -->
+<script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+</body>
+</html>
+{% endblock %}

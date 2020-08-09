@@ -6,7 +6,11 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Project-Thesis-Archive</title>
+    <title>
+        {% block title %}
+            Project-Thesis Archive
+        {% endblock %}
+    </title>
     <!-- Google fonts -->
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
@@ -28,7 +32,6 @@
 		</div>
 		<div class="clear"></div>
 	</div>
-
 	<div class="register-full">
 		<div class="register-left">
 			<div class="register">
@@ -38,14 +41,17 @@
 			</div>
 		</div>
 		<div class="register-right">
+			<div class="register-in middle">
+				<a href="{% url 'teacher_reg' %}">Teacher register here »</a>
+			</div>
+            <div class="register-in">
+				<a href="{% url 'student_reg' %}">Student register here »</a>
+			</div>
 			<div class="register-in">
-				<a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog2">register here »</a>
+				<a href="{% url 'student_login' %}">Student login here »</a>
 			</div>
 			<div class="register-in middle">
-				<a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog">Student login here »</a>
-			</div>
-			<div class="register-in">
-				<a class="book popup-with-zoom-anim button-isi zoomIn animated" data-wow-delay=".5s" href="#small-dialog1">Teacher login here »</a>
+				<a href="{% url 'teacher_login' %}">Teacher login here »</a>
 			</div>
 			<div class="clear"> </div>
 		</div>
@@ -56,92 +62,5 @@
 	<!-- //copyright -->
 </section>
 <!-- //section -->
-
-
-
-<!-- student login form popup-->
-<div class="pop-up">
-	<div id="small-dialog" class="mfp-hide book-form">
-
-		<div class="login-form login-form-left">
-			<div class="agile-row">
-				<h3>Login as a student</h3>
-				<span class="fa fa-lock"></span>
-				<div class="clear"></div>
-				<div class="login-agileits-top">
-					<form action="#" method="post">
-						<input type="text" class="name" name="user name" Placeholder="Email" required=""/>
-						<input type="password" class="password" name="Password" Placeholder="Password" required=""/>
-						<input type="submit" value="Login" disabled="true">
-					</form>
-				</div>
-				<div class="login-agileits-bottom">
-					<h6><a href="#">Forgot password?</a></h6>
-				</div>
-			</div>
-		</div>
-
-	</div>
-</div>
-<!-- //student login form popup-->
-
-<!-- teacher login form popup-->
-<div class="pop-up">
-	<div id="small-dialog1" class="mfp-hide book-form">
-
-		<div class="login-form login-form-left">
-			<div class="agile-row">
-				<h3>Login as a teacher</h3>
-				<span class="fa fa-lock"></span>
-				<div class="clear"></div>
-				<div class="login-agileits-top">
-					<form action="#" method="post">
-						<input type="text" class="name" name="user name" Placeholder="Email" required=""/>
-						<input type="password" class="password" name="Password" Placeholder="Password" required=""/>
-						<input type="submit" value="Login" disabled="true">
-					</form>
-				</div>
-				<div class="login-agileits-bottom">
-					<h6><a href="#">Forgot password?</a></h6>
-				</div>
-			</div>
-		</div>
-
-	</div>
-</div>
-<!-- //teacher login  form popup-->
-
-<!-- register form popup-->
-<div class="pop-up">
-	<div id="small-dialog2" class="mfp-hide book-form">
-
-		<div class="login-form login-form-left">
-			<div class="agile-row">
-				<h3>Register form</h3>
-				<div class="login-agileits-top">
-					<form action="#" method="post">
-						<input type="text" class="name" name="name" Placeholder="Full Name" required=""/>
-						<input type="email" class="email" name="email" Placeholder="Email" required=""/>
-						<input type="text" class="phone" name="phone" Placeholder="Phone Number" required=""/>
-						<input type="password" class="password" name="password" Placeholder="Password" required=""/>
-						<div class="login-check">
-							<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i> I Accept to the <a href="#">Terms &amp; Conditions</a></label>
-						</div>
-						<input type="submit" value="Register">
-					</form>
-				</div>
-			</div>
-		</div>
-
-	</div>
-</div>
-<!-- //register form popup-->
-
-<!-- js -->
-<script type="text/javascript" src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/app.js' %}"></script>
-<!-- //js -->
-<!--popup-js-->
-<script type="text/javascript" src="{% static 'js/jquery.magnific-popup.js' %}" ></script>
 </body>
 </html>
