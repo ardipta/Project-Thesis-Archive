@@ -7,7 +7,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Teacher Login | Project-Thesis Archive</title>
     <!-- Google fonts -->
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
@@ -21,9 +21,26 @@
     <h1>Login as a teacher</h1>
     <div class="main-agileinfo">
         <div class="agileits-top">
-            <form action="#" method="post">
-                <input class="text number" type="text"  name="emp_id" Placeholder="Employee ID" required=""/>
-                <input class="text w3lpass" type="password" name="password" placeholder="Password" required="">
+            <form method="post">
+                 {% csrf_token %}
+
+                 {% for field in teacher_login_form %}
+                    <p>
+                      {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                      {% endfor %}
+                    </p>
+                 {% endfor %}
+                 {% if teacher_login_form.non_field_errors %}
+
+                    <div style="color: red">
+                      <p>{{teacher_login_form.non_field_errors}}</p>
+                    </div>
+
+                 {% endif %}
+
+                <input class="text number" type="text"  name="employee_id" Placeholder="Employee ID"/>
+                <input class="text w3lpass" type="password" name="password" placeholder="Password">
                 <input type="submit" value="Login">
             </form>
             <p>Don't have an Account? <a href="{% url 'teacher_reg' %}"> Register now!</a></p>

@@ -23,6 +23,18 @@
         <div class="agileits-top">
             <form action="#" method="post">
             {% csrf_token %}
+                 {% for field in student_reg_form %}
+                      <p>
+                        {% for error in field.errors %}
+                          <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                      </p>
+                  {% endfor %}
+                  {% if student_reg_form.non_field_errors %}
+                    <div style="color: red">
+                      <p>{{student_reg_form.non_field_errors}}</p>
+                    </div>
+                  {% endif %}
                 <input class="text" type="text" name="username" placeholder="Full Name" required="">
                 <input class="text email" type="email" name="email" placeholder="Email" required="">
                 <input class="text number" type="text"  name="student_id" Placeholder="Student ID" required=""/>
@@ -36,18 +48,7 @@
                     <div class="clear"> </div>
                 </div>
                 <input type="submit" value="SIGNUP">
-                  {% for field in student_reg_form %}
-                      <p>
-                        {% for error in field.errors %}
-                          <p style="color: red">{{ error }}</p>
-                        {% endfor %}
-                      </p>
-                  {% endfor %}
-                  {% if student_reg_form.non_field_errors %}
-                    <div style="color: red">
-                      <p>{{student_reg_form.non_field_errors}}</p>
-                    </div>
-                  {% endif %}
+
             </form>
         </div>
     </div>

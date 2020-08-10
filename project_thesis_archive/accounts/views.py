@@ -1,63 +1,6 @@
 from django.shortcuts import render, redirect
-from accounts.forms import TeacherRegistration, StudentRegistration
+from accounts.forms import TeacherRegistration, StudentRegistration, StudentLoginForm, TeacherLoginForm
 from django.contrib.auth import login, authenticate, logout
-
-
-# from django.contrib.auth import login, authenticate
-# from accounts.forms import TeacherRegistration, StudentRegistration
-
-
-# def teacher_reg_view(request):
-#     # if request.POST:
-#     #     form = TeacherRegistration(request.POST or None)
-#     #     if form.is_valid():
-#     #         form.save()
-#     #         email_ = form.cleaned_data.get('email')
-#     #         name_ = form.cleaned_data.get('name')
-#     #         emp_id = form.cleaned_data.get('employee_id')
-#     #         password_ = form.cleaned_data.get('password')
-#     #         account = authenticate(email=email_, name=name_, employee_id=emp_id, password=password_)
-#     #         login(request, account)
-#     #         return redirect('index')
-#     #     else:
-#     #         context = {
-#     #             'form': form
-#     #         }
-#     # else:
-#     #     form = TeacherRegistration()
-#     #     context = {
-#     #         'form': form
-#     #     }
-#     return render(request, 'teacher_reg.html')
-
-
-# def student_reg_view(request):
-#     # context = {}
-#     # if request.POST:
-#     #     form = StudentRegistration(request.POST)
-#     #     if form.is_valid():
-#     #         form.save()
-#     #         email_ = form.cleaned_data.get('email')
-#     #         name_ = form.cleaned_data.get('name')
-#     #         std_id = form.cleaned_data.get('student_id')
-#     #         password_ = form.cleaned_data.get('password')
-#     #         account = authenticate(email=email_, name=name_, student_id=std_id, password=password_)
-#     #         login(request, account)
-#     #         return redirect('index')
-#     #     else:
-#     #         context['student_reg_form'] = form
-#     # else:
-#     #     form = StudentRegistration()
-#     #     context['student_reg_form'] = form
-#     return render(request, 'student_reg.html')
-
-
-def teacher_login_view(request):
-    return render(request, 'teacher_login.html')
-
-
-def student_login_view(request):
-    return render(request, 'student_login.html')
 
 
 def teacher_reg_view(request):
@@ -98,3 +41,53 @@ def student_reg_view(request):
         form = StudentRegistration()
         context['student_reg_form'] = form
     return render(request, 'student_reg.html', context)
+
+
+def student_login_view(request):
+    context = {}
+    user = request.user
+    if user.is_authenticated:
+        return redirect("index")
+
+    if request.POST:
+        form = StudentLoginForm(request.POST)
+        if form.is_valid():
+            student_id = request.POST['student_id']
+            password = request.POST['password']
+            user = authenticate(student_id=student_id, password=password)
+
+            if user:
+                login(request, user)
+                return redirect('index')
+    else:
+        form = StudentLoginForm()
+
+    context['student_login_form'] = form
+    return render(request, 'student_login.html', context)
+
+
+def teacher_login_view(request):
+    context = {}
+    user = request.user
+    if user.is_authenticated:
+        return redirect("index")
+
+    if request.POST:
+        form = TeacherLoginForm(request.POST)
+        if form.is_valid():
+            employee_id = request.POST['employee_id']
+            password = request.POST['password']
+            user = authenticate(employee_id=employee_id, password=password)
+            if user:
+                login(request, user)
+                return redirect("index")
+    else:
+        form = TeacherLoginForm()
+
+    context['teacher_login_form'] = form
+    return render(request, 'teacher_login.html', context)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('index')
