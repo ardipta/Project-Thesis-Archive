@@ -21,8 +21,30 @@
     <div class="main-agileinfo">
         <div class="agileits-top">
             <form method="POST">
+
                 <input class="text number" type="text"  name="student_id" Placeholder="Student ID">
                 <input class="text w3lpass" type="password" name="password" placeholder="Password">
+                {% csrf_token %}
+
+                {% for field in student_login_form %}
+                   <p>
+                     {% for error in field.errors %}
+                       <p style="color: red">{{ error }}</p>
+                     {% endfor %}
+                   </p>
+                {% endfor %}
+                {% if student_login_form.non_field_errors %}
+
+                   <div style="color: red">
+                     <p>{{student_login_form.non_field_errors}}</p>
+                   </div>
+
+                {% endif %}
+
+                <input class="text number" type="text"  name="student_id" Placeholder="Student ID">
+                <input class="text w3lpass" type="password" name="password" placeholder="Password">
+
+
                <input type="submit" value="Login">
 
             </form>
