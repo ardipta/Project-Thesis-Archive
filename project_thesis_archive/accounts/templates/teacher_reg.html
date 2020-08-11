@@ -21,12 +21,7 @@
     <h1>Teacher Register form</h1>
     <div class="main-agileinfo">
         <div class="agileits-top">
-<<<<<<< HEAD
             <form action="#" method="post">{% csrf_token %}
-=======
-            <form action="#" method="post">
-            {% csrf_token %}
->>>>>>> 1c5cf1332de87d7e78d1a056f0de8ac444767e61
                   {% for field in teacher_reg_form %}
                       <p>
                         {% for error in field.errors %}
@@ -39,7 +34,6 @@
                       <p>{{teacher_reg_form.non_field_errors}}</p>
                     </div>
                   {% endif %}
-<<<<<<< HEAD
                 {% if messages %}
                     <ul class="messages">
                         {% for message in messages %}
@@ -49,8 +43,6 @@
                         {% endfor %}
                     </ul><br>
                 {% endif %}
-=======
->>>>>>> 1c5cf1332de87d7e78d1a056f0de8ac444767e61
                 <input class="text" type="text" name="username" placeholder="Username" required="">
                 <input class="text email" type="email" name="email" placeholder="Email" required="">
                 <input class="text number" type="text"  name="employee_id" Placeholder="Employee ID" required=""/>

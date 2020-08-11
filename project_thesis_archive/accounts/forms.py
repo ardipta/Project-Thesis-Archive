@@ -20,8 +20,7 @@ class StudentRegistration(UserCreationForm):
         fields = ('email', 'username', 'student_id', 'password1', 'password2',)
 
 
-<<<<<<< HEAD
-=======
+
 class StudentLoginForm(forms.Form):
     password = forms.CharField(label='password', widget=forms.PasswordInput)
 
@@ -50,4 +49,3 @@ class TeacherLoginForm(forms.Form):
                 password = self.cleaned_data['password']
                 if not authenticate(employee_id=employee_id, password=password):
                     raise forms.ValidationError("Invalid login")
->>>>>>> 1c5cf1332de87d7e78d1a056f0de8ac444767e61

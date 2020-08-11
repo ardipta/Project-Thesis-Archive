@@ -1,11 +1,10 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
-<<<<<<< HEAD
+
 from accounts.forms import TeacherRegistration, StudentRegistration
-=======
 from accounts.forms import TeacherRegistration, StudentRegistration, StudentLoginForm, TeacherLoginForm
 from django.contrib.auth import login, authenticate, logout
->>>>>>> 1c5cf1332de87d7e78d1a056f0de8ac444767e61
+
 
 
 def teacher_reg_view(request):

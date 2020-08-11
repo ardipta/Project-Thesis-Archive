@@ -20,21 +20,16 @@
     <h1>Student Register form</h1>
     <div class="main-agileinfo">
         <div class="agileits-top">
-<<<<<<< HEAD
-            <form action="#" method="post">{% csrf_token %}
-                {% for field in student_reg_form %}
-=======
+
             <form action="#" method="post">
             {% csrf_token %}
                  {% for field in student_reg_form %}
->>>>>>> b69cb53045dccd77c796f7b93573e960f91636dd
                       <p>
                         {% for error in field.errors %}
                           <p style="color: red">{{ error }}</p>
                         {% endfor %}
                       </p>
-<<<<<<< HEAD
-                {% endfor %}
+		  {% endfor %}
                 {% if student_reg_form.non_field_errors %}
                     <div style="color: red">
                       <p>{{student_reg_form.non_field_errors}}</p>
@@ -49,14 +44,6 @@
                         {% endfor %}
                     </ul><br>
                 {% endif %}
-=======
-                  {% endfor %}
-                  {% if student_reg_form.non_field_errors %}
-                    <div style="color: red">
-                      <p>{{student_reg_form.non_field_errors}}</p>
-                    </div>
-                  {% endif %}
->>>>>>> b69cb53045dccd77c796f7b93573e960f91636dd
                 <input class="text" type="text" name="username" placeholder="Full Name" required="">
                 <input class="text email" type="email" name="email" placeholder="Email" required="">
                 <input class="text number" type="text"  name="student_id" Placeholder="Student ID" required=""/>
