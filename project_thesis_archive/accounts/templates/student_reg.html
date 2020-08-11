@@ -7,7 +7,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Student Login | Project-Thesis Archive</title>
     <!-- Google fonts -->
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext" rel="stylesheet">
@@ -15,26 +15,48 @@
     <link href="{% static 'css/style-auth.css' %}" type="text/css" rel="stylesheet" media="all">
 </head>
 <body>
-
 <!-- main -->
 <div class="main-w3layouts wrapper">
     <h1>Student Register form</h1>
     <div class="main-agileinfo">
         <div class="agileits-top">
+<<<<<<< HEAD
+            <form action="#" method="post">{% csrf_token %}
+                {% for field in student_reg_form %}
+=======
             <form action="#" method="post">
             {% csrf_token %}
                  {% for field in student_reg_form %}
+>>>>>>> b69cb53045dccd77c796f7b93573e960f91636dd
                       <p>
                         {% for error in field.errors %}
                           <p style="color: red">{{ error }}</p>
                         {% endfor %}
                       </p>
+<<<<<<< HEAD
+                {% endfor %}
+                {% if student_reg_form.non_field_errors %}
+                    <div style="color: red">
+                      <p>{{student_reg_form.non_field_errors}}</p>
+                    </div>
+                {% endif %}
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li  {% if message.tags %}
+                            class=" {{ message.tags }} "
+                        {% endif %} style="color: white"><h2> {{ message }} <a href="{% url 'student_login' %}" style="color: greenyellow">Click here</a> to login. </h2></li>
+                        {% endfor %}
+                    </ul><br>
+                {% endif %}
+=======
                   {% endfor %}
                   {% if student_reg_form.non_field_errors %}
                     <div style="color: red">
                       <p>{{student_reg_form.non_field_errors}}</p>
                     </div>
                   {% endif %}
+>>>>>>> b69cb53045dccd77c796f7b93573e960f91636dd
                 <input class="text" type="text" name="username" placeholder="Full Name" required="">
                 <input class="text email" type="email" name="email" placeholder="Email" required="">
                 <input class="text number" type="text"  name="student_id" Placeholder="Student ID" required=""/>
