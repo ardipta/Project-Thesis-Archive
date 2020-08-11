@@ -1,10 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
-
-from accounts.forms import TeacherRegistration, StudentRegistration
 from accounts.forms import TeacherRegistration, StudentRegistration, StudentLoginForm, TeacherLoginForm
-from django.contrib.auth import login, authenticate, logout
-
+from django.contrib.auth import login, authenticate
 
 
 def teacher_reg_view(request):
