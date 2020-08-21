@@ -16,8 +16,7 @@
     <h1>Login as a teacher</h1>
     <div class="main-agileinfo">
         <div class="agileits-top">
-            <form method="post">{% csrf_token %}
-
+            <form action="#" method="post">{% csrf_token %}
                  {% for field in teacher_login_form %}
                     <p>
                       {% for error in field.errors %}
@@ -30,12 +29,11 @@
                       <p>{{teacher_login_form.non_field_errors}}</p>
                     </div>
                  {% endif %}
-
-                <input class="text number" type="text"  name="employee_id" Placeholder="Employee ID"/>
+                <input class="text email" type="email"  name="email" Placeholder="Email"/>
                 <input class="text w3lpass" type="password" name="password" placeholder="Password">
                 <input type="submit" value="Login">
             </form>
-            <p>Don't have an Account? <a href="{% url 'teacher_reg' %}"> Register now!</a></p>
+            <p style="color: white; text-align: center">Don't have an Account? <a href="{% url 'teacher_reg' %}"> Register now!</a></p>
         </div>
     </div>
 </div>

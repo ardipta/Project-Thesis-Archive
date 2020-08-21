@@ -16,8 +16,7 @@
     <h1>Login as a Student</h1>
     <div class="main-agileinfo">
         <div class="agileits-top">
-            <form method="post">{% csrf_token %}
-
+            <form action="#" method="post">{% csrf_token %}
                 {% for field in student_login_form %}
                    <p>
                      {% for error in field.errors %}
@@ -31,11 +30,11 @@
                    </div>
                 {% endif %}
 
-                <input class="text number" type="text"  name="student_id" Placeholder="Student ID">
+                <input class="text email" type="email" name="email" placeholder="Email">
                 <input class="text w3lpass" type="password" name="password" placeholder="Password">
                 <input type="submit" value="Login">
             </form>
-            <p>Don't have an Account? <a href="{% url 'student_reg' %}">Register now!</a></p>
+            <p style="color: white; text-align: center">Don't have an Account? <a href="{% url 'student_reg' %}">Register now!</a></p>
         </div>
     </div>
 </div>

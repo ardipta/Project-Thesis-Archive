@@ -16,31 +16,35 @@
     <h1>Student Register form</h1>
     <div class="main-agileinfo">
         <div class="agileits-top">
-
             <form action="#" method="post">
             {% csrf_token %}
-                 {% for field in student_reg_form %}
+                {% for field in student_reg_form %}
                       <p>
                         {% for error in field.errors %}
                           <p style="color: red">{{ error }}</p>
                         {% endfor %}
                       </p>
-		  {% endfor %}
+		        {% endfor %}
                 {% if student_reg_form.non_field_errors %}
                     <div style="color: red">
                       <p>{{student_reg_form.non_field_errors}}</p>
                     </div>
                 {% endif %}
-                {% if messages %}
+                  {% if messages %}
                     <ul class="messages">
                         {% for message in messages %}
-                        <li  {% if message.tags %}
-                            class=" {{ message.tags }} "
-                        {% endif %} style="color: white"><h2> {{ message }} <a href="{% url 'student_login' %}" style="color: greenyellow">Click here</a> to login. </h2></li>
+                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                                        <h2><span style="color: greenyellow">Registration Successful </span><a href="{% url 'teacher_login' %}">Click here </a><span style="color: greenyellow">to login.</span></h2>
+                                    {% else %}
+                                        <span style="color: #CC3434">{{ message }}</span>
+                                    {% endif %}
+                            </li>
                         {% endfor %}
                     </ul><br>
                 {% endif %}
-                <input class="text" type="text" name="username" placeholder="Full Name" required="">
+                <br>
+                <input class="text" type="text" name="username" placeholder="Username" required="">
                 <input class="text email" type="email" name="email" placeholder="Email" required="">
                 <input class="text number" type="text"  name="student_id" Placeholder="Student ID" required=""/>
                 <input class="text" type="password" name="password1" placeholder="Password" required="">
@@ -48,7 +52,7 @@
                 <div class="wthree-text">
                     <label class="anim">
                         <input type="checkbox" class="checkbox" required="">
-                        <span>I Agree To The Terms & Conditions</span>
+                        <span style="color:white;">I Agree To The Terms & Conditions</span>
                     </label>
                     <div class="clear"> </div>
                 </div>

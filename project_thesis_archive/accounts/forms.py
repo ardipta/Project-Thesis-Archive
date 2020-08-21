@@ -20,7 +20,6 @@ class StudentRegistration(UserCreationForm):
         fields = ('email', 'username', 'student_id', 'password1', 'password2',)
 
 
-
 class StudentLoginForm(forms.Form):
     password = forms.CharField(label='password', widget=forms.PasswordInput)
 
