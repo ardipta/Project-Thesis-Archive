@@ -66,7 +66,6 @@ TEMPLATES = [
         },
     },
 ]
-
 AUTH_USER_MODEL = 'accounts.Account'
 
 WSGI_APPLICATION = 'project_thesis_archive.wsgi.application'

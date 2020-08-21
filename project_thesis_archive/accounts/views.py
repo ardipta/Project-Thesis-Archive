@@ -55,9 +55,9 @@ def student_login_view(request):
     if request.POST:
         form = StudentLoginForm(request.POST)
         if form.is_valid():
-            student_id = request.POST['student_id']
+            email = request.POST['email']
             password = request.POST['password']
-            user = authenticate(student_id=student_id, password=password)
+            user = authenticate(email=email, password=password)
 
             if user:
                 login(request, user)
@@ -78,9 +78,9 @@ def teacher_login_view(request):
     if request.POST:
         form = TeacherLoginForm(request.POST)
         if form.is_valid():
-            employee_id = request.POST['employee_id']
+            email = request.POST['email']
             password = request.POST['password']
-            user = authenticate(employee_id=employee_id, password=password)
+            user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
                 return redirect("index")
