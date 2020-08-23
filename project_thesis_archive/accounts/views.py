@@ -61,7 +61,7 @@ def student_login_view(request):
 
             if user:
                 login(request, user)
-                return redirect('index')
+                return redirect('student_dashboard')
     else:
         form = StudentLoginForm()
 
@@ -83,7 +83,7 @@ def teacher_login_view(request):
             user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
-                return redirect("index")
+                return redirect("student_dashboard")
     else:
         form = TeacherLoginForm()
 
