@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <br>
+        <br>
+      <div class="container">
+          <div class="button_cont" align="center"><a class="example_e" href="{% url 'project_upload' %}" rel="nofollow noopener">Upload Project</a></div>
+      </div>
+      <hr>
+      <div class="container">
+          <div class="button_cont" align="center"><a class="example_e" href="{% url 'thesis_upload' %}" rel="nofollow noopener">Upload Thesis</a></div>
+      </div>
+{% endblock %}
