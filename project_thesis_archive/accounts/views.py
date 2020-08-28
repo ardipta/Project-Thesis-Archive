@@ -1,9 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from accounts.forms import TeacherRegistration, StudentRegistration, StudentLoginForm, TeacherLoginForm
-from django.contrib.auth import login, authenticate, get_user_model
-# from .models import Account
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate
 
 
 def teacher_reg_view(request):
@@ -91,7 +89,6 @@ def teacher_login_view(request):
 
     context['teacher_login_form'] = form
     return render(request, 'teacher_login.html', context)
-
 
 # @login_required
 # def user_details(request):

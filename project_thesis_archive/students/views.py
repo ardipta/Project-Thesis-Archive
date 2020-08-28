@@ -1,7 +1,11 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.contrib import messages
+from django.contrib import messages, auth
+from django.urls import reverse
+
 from .models import ProjectDocument, ThesisPaper
-from django.core.files.storage import FileSystemStorage
+from django.shortcuts import redirect
+from django.contrib.auth.models import User
 
 
 def student_choice(request):
@@ -9,7 +13,7 @@ def student_choice(request):
 
 
 def project_upload(request):
-    if request.method == 'POST' and request.FILES['projectFile'] and request.FILES['docFile'] and request.FILES['thumbnail']:
+    if request.method == 'POST':
         project_name = request.POST["project_name"]
         semester_name = request.POST["semester_name"]
         course_name = request.POST["course_name"]
@@ -17,28 +21,20 @@ def project_upload(request):
         section = request.POST['section']
         description = request.POST['desc']
         project_file = request.FILES['projectFile']
-        doc_file = request.FILES['docFile']
+        document = request.FILES['docFile']
         thumbnail = request.FILES['thumbnail']
-        fs = FileSystemStorage()
-        fs1 = FileSystemStorage()
-        fs2 = FileSystemStorage()
-        obj = ProjectDocument.objects.create(project_name=project_name, semester_name=semester_name,
-                                             course_name=course_name, course_code=course_code, section=section,  description=description)
+        obj = ProjectDocument.objects.create(project_name=project_name, semester_name=semester_name, document=document,
+                                             thumbnail=thumbnail,
+                                             course_name=course_name, course_code=course_code, section=section,
+                                             description=description, project_file=project_file)
         obj.save()
-        project_name = fs.save(project_file.name, project_file)
-        doc_name = fs1.save(doc_file.name, doc_file)
-        thumbnail = fs2.save(thumbnail.name, thumbnail)
-        uploaded_file_url = fs.url(project_name)
-        uploaded_file_url1 = fs1.url(doc_name)
-        uploaded_file_url2 = fs2.url(thumbnail)
-        return render(request, 'dashboard/project_upload.html', {
-            'uploaded_file_url': uploaded_file_url, 'uploaded_file_url1': uploaded_file_url1, 'uploaded_file_url2': uploaded_file_url2,
-        })
+        messages.success(request, 'Upload Successful')
+        return render(request, 'dashboard/project_upload.html')
     return render(request, 'dashboard/project_upload.html')
 
 
 def thesis_upload(request):
-    if request.method == 'POST' and request.FILES['thesis_up'] and request.FILES['thumbnail']:
+    if request.method == 'POST':
         thesis_title = request.POST["thesis_title"]
         semester_name = request.POST["semester_name"]
         course_name = request.POST["course_name"]
@@ -47,17 +43,41 @@ def thesis_upload(request):
         description = request.POST['desc']
         thesis_file = request.FILES['thesis_up']
         thumbnail = request.FILES['thumbnail']
-        fs = FileSystemStorage()
-        fs1 = FileSystemStorage()
         obj = ThesisPaper.objects.create(thesis_title=thesis_title, semester_name=semester_name,
-                                         course_name=course_name, course_code=course_code, section=section, description=description)
+                                         thesis_file=thesis_file, thumbnail=thumbnail,
+                                         course_name=course_name, course_code=course_code, section=section,
+                                         description=description)
         obj.save()
         messages.success(request, 'Upload Successful')
-        thesis_file = fs.save(thesis_file.name, thesis_file)
-        thumbnail = fs1.save(thumbnail.name, thumbnail)
-        uploaded_file_url = fs.url(thesis_file)
-        uploaded_file_url1 = fs1.url(thumbnail)
-        return render(request, 'dashboard/thesis_upload.html', {
-            'uploaded_file_url': uploaded_file_url, 'uploaded_file_url1': uploaded_file_url1
-        })
+        return render(request, 'dashboard/thesis_upload.html')
     return render(request, 'dashboard/thesis_upload.html')
+
+
+def view_project_details(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, 'You need to login first')
+        return redirect("student_login")
+    projects = ProjectDocument.objects.all()
+    print(projects)
+    context = {
+        'projects': projects,
+    }
+    return render(request, 'dashboard/view_project_details.html', context)
+
+
+def view_thesis_details(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, 'You need to login first')
+        return redirect("student_login")
+    thesis = ThesisPaper.objects.all()
+    print(thesis)
+    context = {
+        'thesis': thesis,
+    }
+    return render(request, 'dashboard/view_thesis_details.html', context)
+
+
+# def logout(request):
+#     if request.method == "POST":
+#         logout(request)
+#         return HttpResponseRedirect(reverse('index'))
