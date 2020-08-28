@@ -1,6 +1,7 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
+from django.contrib.auth.forms import UserCreationForm
+
 from accounts.models import Account
 
 
@@ -23,7 +24,7 @@ class StudentRegistration(UserCreationForm):
 class StudentLoginForm(forms.Form):
     class Meta:
         model = Account
-        fields = ('student_id', 'password')
+        fields = ('email', 'password')
 
         def clean(self):
             if self.is_valid():
@@ -36,7 +37,7 @@ class StudentLoginForm(forms.Form):
 class TeacherLoginForm(forms.Form):
     class Meta:
         model = Account
-        fields = ('employee_id', 'password')
+        fields = ('email', 'password')
 
         def clean(self):
             if self.is_valid():

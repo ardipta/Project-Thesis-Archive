@@ -1,9 +1,15 @@
 from django.shortcuts import render
 
+from students.models import ProjectDocument, ThesisPaper
 
-# Create your views here.
+
 def index(request):
-    return render(request, 'pages/index.html')
-
-
-
+    projects = ProjectDocument.objects.all()
+    thesis = ThesisPaper.objects.all()
+    print(projects)
+    print(thesis)
+    context = {
+        'projects': projects,
+        'thesis': thesis,
+    }
+    return render(request, 'pages/index.html', context)

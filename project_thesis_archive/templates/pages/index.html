@@ -14,6 +14,7 @@
     <!-- css files -->
     <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="all">
     <!-- //css files -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 </head>
 <body>
@@ -51,10 +52,51 @@
 		</div>
 	<div class="clear"> </div>
 	</div>
+</section>
+<!-- //section -->
+<div class="container">
+    <div class="row">
+        {% for project in projects %}
+        <div class="col-lg-4 col-md-4">
+            <h3 style="text-align: center; color: white" >Projects</h3>
+            <div class="card" style="width: 18">
+              <img class="card-img-top" src="{{ project.thumbnail.url }}" alt="">
+              <div class="card-body bg-dark">
+                <h5 class="card-title text-white"> {{ project.project_name }} </h5>
+                <p class="card-text text-white">{{ project.description }}</p>
+                <a href="{% url 'view_project_details' %}" class="btn  btn-secondary">View Details</a>
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% for thes in thesis %}
+        <div class="col-lg-4 col-md-4">
+            <h3 style="text-align: center; color: white" >Thesis Paper</h3>
+           <div class="card" style="width: 18">
+              <img class="card-img-top" src="{{ thes.thumbnail.url }}" alt="">
+              <div class="card-body bg-dark">
+                <h5 class="card-title text-white">{{ thes.thesis_title }}</h5>
+                <p class="card-text text-white">{{ thes.description }}</p>
+                <a href="{% url 'view_thesis_details' %}" class="btn  btn-secondary">View Details</a>
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+
+{#        <div class="col-lg-4 col-md-4">#}
+{#           <div class="card" style="width: 18rem;">#}
+{#              <img class="card-img-top" src="{% static 'images/student.jpg' %}" alt="Card image cap">#}
+{#              <div class="card-body bg-dark">#}
+{#                <h5 class="card-title text-white">Card title</h5>#}
+{#                <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>#}
+{#                <a href="#" class="btn btn-secondary">Go somewhere</a>#}
+{#              </div>#}
+{#            </div>#}
+{#        </div>#}
+    </div>
+    </div>
 	<!-- copyright -->
 	<p class="agile-copyright">© 2020 Department of Software Engineering,Daffodil International University.</p>
 	<!-- //copyright -->
-</section>
-<!-- //section -->
 </body>
 </html>
