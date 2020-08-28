@@ -5,6 +5,3 @@ from django.shortcuts import render
 def index(request):
     return render(request, 'pages/index.html')
 
-
-def student(request):
-    return render(request, 'pages/student_dashboard.html')

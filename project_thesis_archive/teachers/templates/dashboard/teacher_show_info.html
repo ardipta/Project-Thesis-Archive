@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Overview</li>
+          </ol>
+          <br>
+          <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Student ID</th>
+              <th scope="col">Student Name</th>
+              <th scope="col">Section</th>
+              <th scope="col">Project File</th>
+              <th scope="col">Thesis File</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for item in objs %}
+             <tr>
+              <th scope="row">{{ item.student_id }}</th>
+              <td>{{ item.username }}</td>
+              <td>B</td>
+              <td><a href="">Download</a></td>
+              <td><a href="">Download</a></td>
+
+             </tr>
+           {% endfor %}
+          </tbody>
+        </table>
+{% endblock %}

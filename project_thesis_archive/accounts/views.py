@@ -61,7 +61,7 @@ def student_login_view(request):
 
             if user:
                 login(request, user)
-                return redirect('index')
+                return redirect('student_dashboard_choice')
     else:
         form = StudentLoginForm()
 
@@ -83,9 +83,18 @@ def teacher_login_view(request):
             user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
-                return redirect("index")
+                return redirect('teacher_dashboard_choice')
     else:
         form = TeacherLoginForm()
 
     context['teacher_login_form'] = form
     return render(request, 'teacher_login.html', context)
+
+
+# def edit_profile(request):
+#     if request.method == 'POST':
+#         form = UserChangeForm(request.post, instace=request.user)
+#
+#         if form.is_valid():
+#             form.save()
+#             return redirect()
