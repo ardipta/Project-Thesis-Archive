@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth import get_user_model as user_model
 
 
 class MyAccountManager(BaseUserManager):
@@ -13,6 +14,7 @@ class MyAccountManager(BaseUserManager):
             email=self.normalize_email(email),
             username=username,
             employee_id=employee_id,
+            student_id=student_id,
         )
 
         user.set_password(password)
@@ -32,6 +34,10 @@ class MyAccountManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
+
+
+def has_module_perms(app_label):
+    return True
 
 
 class Account(AbstractBaseUser):
@@ -61,3 +67,35 @@ class Account(AbstractBaseUser):
     # Does this user have permission to view this app? (ALWAYS YES FOR SIMPLICITY)
     def has_module_perms(self, app_label):
         return True
+
+
+class StudentProfileUpdate(models.Model):
+    User = user_model()
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=60)
+    address = models.CharField(max_length=255)
+    date_of_birth = models.CharField(max_length=60)
+    blood_group = models.CharField(max_length=60)
+    gender = models.CharField(max_length=60)
+    department = models.CharField(max_length=60)
+    religion = models.CharField(max_length=60)
+    image = models.ImageField(upload_to='images/%Y/%m/%d/')
+
+    def __str__(self):
+        return self.user.email
+
+
+class TeacherProfileUpdate(models.Model):
+    User = user_model()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=60)
+    address = models.CharField(max_length=255)
+    date_of_birth = models.CharField(max_length=60)
+    blood_group = models.CharField(max_length=60)
+    gender = models.CharField(max_length=60)
+    religion = models.CharField(max_length=60)
+    initial = models.CharField(max_length=60)
+    image = models.ImageField(blank=True)
+
+    def __str__(self):
+        return self.user.email

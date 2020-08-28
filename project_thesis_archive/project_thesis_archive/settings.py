@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'accounts.apps.AccountsConfig',
+    'students.apps.StudentsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -66,6 +67,7 @@ TEMPLATES = [
         },
     },
 ]
+
 AUTH_USER_MODEL = 'accounts.Account'
 
 WSGI_APPLICATION = 'project_thesis_archive.wsgi.application'
@@ -120,9 +122,16 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'project_thesis_archive/static')
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR), 'media')
+
 # Messages
 from django.contrib.messages import constants as messages
 
 MESSAGE_TAGS = {
-    messages.ERROR: 'danger'
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
 }
