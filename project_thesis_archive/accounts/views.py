@@ -1,7 +1,9 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from accounts.forms import TeacherRegistration, StudentRegistration, StudentLoginForm, TeacherLoginForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, get_user_model
+# from .models import Account
+# from django.contrib.auth.decorators import login_required
 
 
 def teacher_reg_view(request):
@@ -15,7 +17,7 @@ def teacher_reg_view(request):
             # account = authenticate(email=email, password=raw_password)
             # login(request, account)
             messages.success(request, 'Registration Successful')
-            return redirect('teacher_reg')
+            return redirect('teacher_login')
         else:
             context['teacher_reg_form'] = form
 
@@ -36,7 +38,7 @@ def student_reg_view(request):
             # account = authenticate(email=email, password=raw_password)
             # login(request, account)
             messages.success(request, 'Registration Successful')
-            return redirect('student_reg')
+            return redirect('student_login')
         else:
             context['student_reg_form'] = form
 
@@ -89,3 +91,13 @@ def teacher_login_view(request):
 
     context['teacher_login_form'] = form
     return render(request, 'teacher_login.html', context)
+
+
+# @login_required
+# def user_details(request):
+#     user = Account.objects.all()
+#     context = {
+#         'user': user
+#     }
+#     template = 'partials/_sidebar.html'
+#     return render(request, template, context)
