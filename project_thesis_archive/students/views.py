@@ -11,6 +11,9 @@ def student_choice(request):
 
 def project_upload(request):
     if request.method == 'POST':
+        username = request.POST["username"]
+        email = request.POST["email"]
+        student_id = request.POST["student_id"]
         project_name = request.POST["project_name"]
         semester_name = request.POST["semester_name"]
         course_name = request.POST["course_name"]
@@ -20,9 +23,10 @@ def project_upload(request):
         project_file = request.FILES['projectFile']
         document = request.FILES['docFile']
         thumbnail = request.FILES['thumbnail']
-        obj = ProjectDocument.objects.create(project_name=project_name, semester_name=semester_name, document=document,
-                                             thumbnail=thumbnail,
-                                             course_name=course_name, course_code=course_code, section=section,
+        obj = ProjectDocument.objects.create(username=username, email=email, student_id=student_id,
+                                             project_name=project_name, semester_name=semester_name,
+                                             document=document, thumbnail=thumbnail, course_name=course_name,
+                                             course_code=course_code, section=section,
                                              description=description, project_file=project_file)
         obj.save()
         messages.success(request, 'Upload Successful')

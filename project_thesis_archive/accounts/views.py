@@ -56,8 +56,6 @@ def student_reg_view(request):
 
 def student_login_view(request):
     context = {}
-    if request.method == 'GET':
-        cache.set('next', request.GET.get('next', None))
     if request.POST:
         form = StudentLoginForm(request.POST)
         if form.is_valid():
@@ -79,7 +77,6 @@ def student_login_view(request):
 
 def teacher_login_view(request):
     context = {}
-
     if request.POST:
         form = TeacherLoginForm(request.POST)
         if form.is_valid():
@@ -92,7 +89,7 @@ def teacher_login_view(request):
     else:
         form = TeacherLoginForm()
 
-    context['teacher_login_form'] = form
+    context['teacher_login'] = form
     return render(request, 'teacher_login.html', context)
 
 

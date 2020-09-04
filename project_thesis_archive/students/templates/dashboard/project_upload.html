@@ -14,6 +14,20 @@
     <form method="post" enctype="multipart/form-data"> {% csrf_token %}
         <div class="col-lg-12">
               <h1 class="text-center">Upload Project & Document</h1>
+            <div class="form-row">
+                <div class="form-group col-lg-4 col-md-4">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="username" value="{{ user.username }}">
+                </div>
+                <div class="form-group col-lg-4 col-md-4">
+                    <label>Email</label>
+                    <input type="text" class="form-control" name="email" value="{{ user.email }}">
+                </div>
+                <div class="form-group col-lg-4 col-md-4">
+                    <label>Student ID</label>
+                    <input type="text" class="form-control" name="student_id" value="{{ user.student_id }}">
+                </div>
+            </div>
             <div class="form-group">
                 <input type="text" name="project_name" required placeholder="Project Name" class="form-control">
             </div>

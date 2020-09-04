@@ -1,7 +1,13 @@
 from django.db import models
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
 
 
 class ProjectDocument(models.Model):
+    username = models.CharField(max_length=60, null=True, blank=True)
+    email = models.CharField(max_length=60, null=True, blank=True)
+    student_id = models.CharField(max_length=60, null=True, blank=True)
     project_name = models.CharField(max_length=60, null=True, blank=True)
     semester_name = models.CharField(max_length=60, null=True, blank=True)
     course_name = models.CharField(max_length=60, null=True, blank=True)
