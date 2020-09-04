@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth import authenticate
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-from accounts.models import Account
+from accounts.models import Account, StudentProfile
 
 
 class TeacherRegistration(UserCreationForm):
@@ -10,7 +10,13 @@ class TeacherRegistration(UserCreationForm):
 
     class Meta:
         model = Account
-        fields = ('email', 'username', 'employee_id', 'password1', 'password2',)
+        fields = (
+            'email',
+            'username',
+            'employee_id',
+            'password1',
+            'password2',
+        )
 
 
 class StudentRegistration(UserCreationForm):
@@ -18,7 +24,39 @@ class StudentRegistration(UserCreationForm):
 
     class Meta:
         model = Account
-        fields = ('email', 'username', 'student_id', 'password1', 'password2',)
+        fields = (
+            'email',
+            'username',
+            'student_id',
+            'password1',
+            'password2',
+        )
+
+
+class StudentEditProfileForm(forms.ModelForm):
+    class Meta:
+        model = Account
+        fields = (
+            'email',
+            'username',
+            'student_id',
+        )
+
+
+class StudentProfileForm(forms.ModelForm):
+    class Meta:
+        model = StudentProfile
+        fields = (
+            'full_name',
+            'phone',
+            'address',
+            'date_of_birth',
+            'blood_group',
+            'gender',
+            'department',
+            'religion',
+            'image'
+        )
 
 
 class StudentLoginForm(forms.Form):

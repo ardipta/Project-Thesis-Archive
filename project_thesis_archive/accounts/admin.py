@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from accounts.models import Account, StudentProfileUpdate, TeacherProfileUpdate
+from accounts.models import Account, StudentProfile, TeacherProfile
 
 
 class AccountAdmin(UserAdmin):
@@ -14,9 +14,10 @@ class AccountAdmin(UserAdmin):
     fieldsets = ()
 
 
-# class StudentAdmin(admin.ModelAdmin):
-#     list_display = ['phone', '']
+class StudentAdmin(admin.ModelAdmin):
+    list_display = ['user', 'phone', ]
+
 
 admin.site.register(Account, AccountAdmin)
-admin.site.register(StudentProfileUpdate)
-admin.site.register(TeacherProfileUpdate)
+admin.site.register(StudentProfile, StudentAdmin)
+admin.site.register(TeacherProfile)

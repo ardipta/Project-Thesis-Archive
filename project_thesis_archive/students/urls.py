@@ -7,8 +7,8 @@ urlpatterns = [
     path('student_dashboard/', views.student_choice, name='student_dashboard'),
     path('student_dashboard/project_upload/', views.project_upload, name='project_upload'),
     path('student_dashboard/thesis_upload/', views.thesis_upload, name='thesis_upload'),
-    path('student_dashboard/view_project_details/', views.view_project_details, name='view_project_details'),
-    path('student_dashboard/view_thesis_details/', views.view_thesis_details, name='view_thesis_details'),
+    path('<str:project_name>', views.project_show, name='project_show'),
+    # path('<str:thesis_title>', views.thesis_show, name='thesis_show'),
 ]
 
 if settings.DEBUG:

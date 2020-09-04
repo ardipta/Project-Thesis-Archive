@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from django.contrib.auth import get_user_model as user_model
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
 
 
 class MyAccountManager(BaseUserManager):
@@ -69,33 +71,34 @@ class Account(AbstractBaseUser):
         return True
 
 
-class StudentProfileUpdate(models.Model):
-    User = user_model()
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=60)
-    address = models.CharField(max_length=255)
-    date_of_birth = models.CharField(max_length=60)
-    blood_group = models.CharField(max_length=60)
-    gender = models.CharField(max_length=60)
-    department = models.CharField(max_length=60)
-    religion = models.CharField(max_length=60)
-    image = models.ImageField(upload_to='images/%Y/%m/%d/')
+class StudentProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=60, null=True)
+    phone = models.CharField(max_length=60, null=True)
+    address = models.CharField(max_length=255, null=True)
+    date_of_birth = models.CharField(max_length=60, null=True)
+    blood_group = models.CharField(max_length=60, null=True)
+    gender = models.CharField(max_length=60, null=True)
+    department = models.CharField(max_length=60, null=True)
+    religion = models.CharField(max_length=60, null=True)
+    image = models.FileField(upload_to='images/%Y/%m/%d/', null=True)
+    update_on = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.user.email
 
 
-class TeacherProfileUpdate(models.Model):
-    User = user_model()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=60)
-    address = models.CharField(max_length=255)
-    date_of_birth = models.CharField(max_length=60)
-    blood_group = models.CharField(max_length=60)
-    gender = models.CharField(max_length=60)
-    religion = models.CharField(max_length=60)
-    initial = models.CharField(max_length=60)
-    image = models.ImageField(blank=True)
+class TeacherProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=60, null=True, default='')
+    phone = models.CharField(max_length=60, null=True, default='')
+    address = models.CharField(max_length=255, null=True, default='')
+    date_of_birth = models.CharField(max_length=60, null=True, default='')
+    blood_group = models.CharField(max_length=60, null=True, default='')
+    gender = models.CharField(max_length=60, null=True, default='')
+    religion = models.CharField(max_length=60, null=True, default='')
+    initial = models.CharField(max_length=60, null=True, default='')
+    image = models.ImageField(upload_to='images/%Y/%m/%d/', null=True, default='')
 
     def __str__(self):
         return self.user.email

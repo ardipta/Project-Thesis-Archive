@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <div class="container">
-        <h1 style="text-align: center">Project Details</h1>
+        <h1 style="text-align: center">Thesis Details</h1>
     <table class="table" >
           <thead class="thead-dark">
             <tr>
@@ -11,15 +11,13 @@
               <th scope="col">Thesis File</th>
             </tr>
           </thead>
-        {% for thes in thesis %}
           <tbody>
             <tr>
-              <th scope="row">{{ thes.thesis_title }}</th>
-              <td>{{ thes.description }}</td>
-              <td><a href="{{ thes.thesis_file.url }}">Download</a></td>
+              <th scope="row">{{ thesis }}</th>
+              <td>{{ thesis.description }}</td>
+              <td><a href="{{ thesis.thesis_file.url }}">Download</a></td>
             </tr>
           </tbody>
-        {% endfor %}
         </table>
     </div>
 </div>

@@ -9,19 +9,17 @@
               <th scope="col">Project Name</th>
               <th scope="col">Description</th>
               <th scope="col">Project File</th>
-              <th scope="col">Thesis File</th>
+              <th scope="col">Document</th>
             </tr>
           </thead>
-        {% for project in projects %}
           <tbody>
             <tr>
-              <th scope="row">{{ project.project_name }}</th>
+              <th scope="row">{{ project }}</th>
               <td>{{ project.description }}</td>
               <td><a href="{{ project.project_file.url }}">Download</a></td>
               <td><a href="{{ project.document.url }}">Download</a></td>
             </tr>
           </tbody>
-        {% endfor %}
         </table>
     </div>
 

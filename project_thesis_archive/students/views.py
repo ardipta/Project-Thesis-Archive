@@ -1,11 +1,8 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.contrib import messages, auth
-from django.urls import reverse
-
-from .models import ProjectDocument, ThesisPaper
-from django.shortcuts import redirect
-from django.contrib.auth.models import User
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from students.models import ProjectDocument, ThesisPaper
 
 
 def student_choice(request):
@@ -53,31 +50,27 @@ def thesis_upload(request):
     return render(request, 'dashboard/thesis_upload.html')
 
 
-def view_project_details(request):
-    if not request.user.is_authenticated:
-        messages.warning(request, 'You need to login first')
-        return redirect("student_login")
-    projects = ProjectDocument.objects.all()
-    print(projects)
+@login_required(login_url='student_login')
+def project_show(request, project_name):
+    # if not request.user.is_authenticated:
+    #     messages.warning(request, 'You need to login first')
+    #     return redirect("student_login")
+    project = ProjectDocument.objects.get(project_name=project_name)
+    print(project)
     context = {
-        'projects': projects,
+        'project': project
     }
     return render(request, 'dashboard/view_project_details.html', context)
 
 
-def view_thesis_details(request):
-    if not request.user.is_authenticated:
-        messages.warning(request, 'You need to login first')
-        return redirect("student_login")
-    thesis = ThesisPaper.objects.all()
-    print(thesis)
-    context = {
-        'thesis': thesis,
-    }
-    return render(request, 'dashboard/view_thesis_details.html', context)
-
-
-# def logout(request):
-#     if request.method == "POST":
-#         logout(request)
-#         return HttpResponseRedirect(reverse('index'))
+# @login_required(login_url='student_login')
+# def thesis_show(request, thesis_title):
+#     # if not request.user.is_authenticated:
+#     #     messages.warning(request, 'You need to login first')
+#     #     return redirect("student_login")
+#     thesis = ThesisPaper.objects.get(thesis_title=thesis_title)
+#     print(thesis)
+#     context = {
+#         'thesis': thesis
+#     }
+#     return render(request, 'dashboard/view_thesis_details.html', context)
