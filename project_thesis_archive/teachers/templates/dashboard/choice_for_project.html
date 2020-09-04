@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+ <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Overview</li>
+          </ol>
+          <br>
+          <h2 class="text-center"><strong>Select Criteria For Project</strong></h2>
+          <form class="col-lg-12" method="POST" action="#">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Select Semester</label>
+                <select class="browser-default custom-select">
+                  <option selected disabled>--Select--</option>
+                  <option></option>
+                </select>
+            </div>
+            <div class="form-group">
+              <label>Select Course Name</label>
+                <select class="browser-default custom-select">
+                  <option selected disabled>--Select--</option>
+                  <option></option>
+                </select>
+            </div>
+            <div class="form-group">
+              <label>Select Course Code</label>
+                <select class="browser-default custom-select">
+                  <option selected disabled>--Select--</option>
+                   <option></option>
+                </select>
+            </div>
+            <div class="form-group">
+              <label>Select Section</label>
+                <select class="browser-default custom-select">
+                  <option selected disabled>--Select--</option>
+                   <option></option>
+                </select>
+            </div>
+            <input type="button" class="btn btn-outline-info" value="Submit">
+          </form>
+{% endblock %}

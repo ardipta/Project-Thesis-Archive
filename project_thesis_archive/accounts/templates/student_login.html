@@ -9,14 +9,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Student Login | Project-Thesis Archive</title>
     <link href="{% static 'css/style-auth.css' %}" type="text/css" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <!-- main -->
 <div class="main-w3layouts wrapper">
+        {% if messages %}
+                {% for message in messages %}
+                    <span {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                            {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                                {% include 'messages/message.html' %}
+                            {% endif %}
+                    </span>
+                {% endfor %}
+        {% endif %}
     <h1>Login as a Student</h1>
     <div class="main-agileinfo">
         <div class="agileits-top">
-            <form action="#" method="post">{% csrf_token %}
+            <form action="" method="post">{% csrf_token %}
                 {% for field in student_login_form %}
                    <p>
                      {% for error in field.errors %}
@@ -32,6 +42,7 @@
                 <br>
                 <input class="email" type="email"  name="email" Placeholder="Email"/>
                 <input class="text w3lpass" type="password" name="password" placeholder="Password">
+                <input type="hidden" name="next" value="{{ request.GET.next }}" />
                 <input type="submit" value="Login">
             </form>
             <p style="color: white; text-align: center">Don't have an Account? <a href="{% url 'student_reg' %}">Register now!</a></p>
