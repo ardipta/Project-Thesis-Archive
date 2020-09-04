@@ -6,6 +6,7 @@
 __pycache__/
 ptaenv
 blog
+firstenv
 .idea
 db.sqlite3
 db.sqlite3-journal
