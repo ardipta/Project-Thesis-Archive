@@ -14,29 +14,20 @@
 <body>
 <!-- main -->
 <div class="main-w3layouts wrapper">
-        {% if messages %}
-                {% for message in messages %}
-                    <span {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-                            {% if message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
-                                {% include 'messages/message.html' %}
-                            {% endif %}
-                    </span>
-                {% endfor %}
-        {% endif %}
     <h1>Login as a Student</h1>
     <div class="main-agileinfo">
         <div class="agileits-top">
             <form action="" method="post">{% csrf_token %}
-                {% for field in student_login_form %}
+                {% for field in teacher_login %}
                    <p>
                      {% for error in field.errors %}
                        <p style="color: red">{{ error }}</p>
                      {% endfor %}
                    </p>
                 {% endfor %}
-                {% if student_login_form.non_field_errors %}
+                {% if teacher_login.non_field_errors %}
                    <div style="color: red">
-                     <p>{{student_login_form.non_field_errors}}</p>
+                     <p>{{teacher_login.non_field_errors}}</p>
                    </div>
                 {% endif %}
                 <br>

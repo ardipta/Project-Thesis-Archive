@@ -35,7 +35,7 @@
                         {% for message in messages %}
                             <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
                                     {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                                        <h2><span style="color: greenyellow">Registration Successful </span><a href="{% url 'teacher_login' %}">Click here </a><span style="color: greenyellow">to login.</span></h2>
+                                        <h2><span style="color: greenyellow">Registration Successful </span><a href="{% url 'student_login' %}">Click here </a><span style="color: greenyellow">to login.</span></h2>
                                     {% else %}
                                         <span style="color: #CC3434">{{ message }}</span>
                                     {% endif %}
