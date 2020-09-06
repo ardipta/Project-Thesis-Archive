@@ -27,6 +27,9 @@ class ProjectDocument(models.Model):
 
 
 class ThesisPaper(models.Model):
+    username = models.CharField(max_length=60, null=True, blank=True)
+    email = models.CharField(max_length=60, null=True, blank=True)
+    student_id = models.CharField(max_length=60, null=True, blank=True)
     thesis_title = models.CharField(max_length=60, null=True)
     semester_name = models.CharField(max_length=60, null=True)
     course_name = models.CharField(max_length=60, null=True)
