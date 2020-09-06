@@ -36,6 +36,9 @@ def project_upload(request):
 
 def thesis_upload(request):
     if request.method == 'POST':
+        username = request.POST["username"]
+        email = request.POST["email"]
+        student_id = request.POST["student_id"]
         thesis_title = request.POST["thesis_title"]
         semester_name = request.POST["semester_name"]
         course_name = request.POST["course_name"]
@@ -44,7 +47,8 @@ def thesis_upload(request):
         description = request.POST['desc']
         thesis_file = request.FILES['thesis_up']
         thumbnail = request.FILES['thumbnail']
-        obj = ThesisPaper.objects.create(thesis_title=thesis_title, semester_name=semester_name,
+        obj = ThesisPaper.objects.create(username=username, email=email, student_id=student_id,
+                                         thesis_title=thesis_title, semester_name=semester_name,
                                          thesis_file=thesis_file, thumbnail=thumbnail,
                                          course_name=course_name, course_code=course_code, section=section,
                                          description=description)
@@ -65,7 +69,6 @@ def project_show(request, project_name):
         'project': project
     }
     return render(request, 'dashboard/view_project_details.html', context)
-
 
 # @login_required(login_url='student_login')
 # def thesis_show(request, thesis_title):
