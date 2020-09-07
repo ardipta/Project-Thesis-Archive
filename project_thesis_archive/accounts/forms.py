@@ -62,7 +62,10 @@ class StudentProfileForm(forms.ModelForm):
 class StudentLoginForm(forms.Form):
     class Meta:
         model = Account
-        fields = ('email', 'password')
+        fields = (
+            'email',
+            'password'
+        )
 
         def clean(self):
             if self.is_valid():
@@ -75,7 +78,10 @@ class StudentLoginForm(forms.Form):
 class TeacherLoginForm(forms.Form):
     class Meta:
         model = Account
-        fields = ('email', 'password')
+        fields = (
+            'email',
+            'password'
+        )
 
         def clean(self):
             if self.is_valid():
