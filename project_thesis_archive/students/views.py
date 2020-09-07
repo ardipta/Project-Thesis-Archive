@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -6,10 +6,18 @@ from students.models import ProjectDocument, ThesisPaper
 
 
 def student_choice(request):
+    if not request.user.is_authenticated:
+        messages.info(request, 'You need to login first!!')
+        return redirect("student_login")
+
     return render(request, 'dashboard/student_dashboard_choice.html')
 
 
 def project_upload(request):
+    if not request.user.is_authenticated:
+        messages.info(request, 'You need to login first!!')
+        return redirect("student_login")
+
     if request.method == 'POST':
         username = request.POST["username"]
         email = request.POST["email"]
@@ -35,6 +43,10 @@ def project_upload(request):
 
 
 def thesis_upload(request):
+    if not request.user.is_authenticated:
+        messages.info(request, 'You need to login first!!')
+        return redirect("student_login")
+
     if request.method == 'POST':
         username = request.POST["username"]
         email = request.POST["email"]
@@ -61,10 +73,9 @@ def thesis_upload(request):
 @login_required(login_url='student_login')
 def project_show(request, project_name):
     # if not request.user.is_authenticated:
-    #     messages.warning(request, 'You need to login first')
+    #     messages.info(request, 'You need to login first!!')
     #     return redirect("student_login")
     project = ProjectDocument.objects.get(project_name=project_name)
-    print(project)
     context = {
         'project': project
     }
