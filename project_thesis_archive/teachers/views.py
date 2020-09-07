@@ -4,18 +4,34 @@ from students.models import ProjectDocument, ThesisPaper
 
 
 def teacher_dashboard(request):
+    if not request.user.is_authenticated:
+        messages.info(request, 'You need to login first!!')
+        return redirect("teacher_login")
+
     return render(request, 'dashboard/teacher_dashboard.html')
 
 
 def project_choice(request):
+    if not request.user.is_authenticated:
+        messages.info(request, 'You need to login first!!')
+        return redirect("teacher_login")
+
     return render(request, 'dashboard/choice_for_project.html')
 
 
 def thesis_choice(request):
+    if not request.user.is_authenticated:
+        messages.info(request, 'You need to login first!!')
+        return redirect("teacher_login")
+
     return render(request, 'dashboard/choice_for_thesis.html')
 
 
 def thesis_files(request):
+    if not request.user.is_authenticated:
+        messages.info(request, 'You need to login first!!')
+        return redirect("teacher_login")
+
     get_method = request.GET.copy()
     semester_name = get_method.get('semester_name')
     course_name = get_method.get('course_name')
@@ -59,6 +75,10 @@ def thesis_files(request):
 
 
 def project_files(request):
+    if not request.user.is_authenticated:
+        messages.info(request, 'You need to login first!!')
+        return redirect("teacher_login")
+
     get_method = request.GET.copy()
     semester_name = get_method.get('semester_name')
     course_name = get_method.get('course_name')

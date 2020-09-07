@@ -26,10 +26,15 @@
                     <span class="messages">
                         {% for message in messages %}
                             {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-                                <span style="color: #CC3434">Wrong Credentials!!</span>
+                                <span style="color: red">{{ message }}</span>
+                            {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                                <span style="color: #17a2b8">{{ message }}</span>
                             {% endif %}
                         {% endfor %}
                     </span>
+                {% endif %}
+                {% if request.GET.next %}
+                    <span style="color: #17a2b8">You need to login first!!</span>
                 {% endif %}
                 <input class="email" type="email"  name="email" Placeholder="Email" required>
                 <input class="text w3lpass" type="password" name="password" placeholder="Password" required>

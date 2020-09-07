@@ -69,7 +69,7 @@ def student_login_view(request):
                 next_url = request.GET.get('next', 'student_dashboard')
                 return redirect(next_url)
             else:
-                messages.error(request, 'Wrong Credentials')
+                messages.error(request, 'Wrong Credentials!!')
     else:
         form = StudentLoginForm()
 
@@ -87,9 +87,10 @@ def teacher_login_view(request):
             user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
+                messages.success(request, 'Login Successful')
                 return redirect("teacher_dashboard")
             else:
-                messages.error(request, 'Wrong Credentials')
+                messages.error(request, 'Wrong Credentials!!')
     else:
         form = TeacherLoginForm()
 
@@ -122,5 +123,10 @@ def edit_profile(request):
 
 
 def student_logout(request):
+    auth.logout(request)
+    return redirect('index')
+
+
+def teacher_logout(request):
     auth.logout(request)
     return redirect('index')
