@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-from accounts.models import Account, StudentProfile
+from accounts.models import Account
 
 
 class TeacherRegistration(UserCreationForm):
@@ -12,7 +12,9 @@ class TeacherRegistration(UserCreationForm):
         model = Account
         fields = (
             'email',
-            'username',
+            'fullname',
+            'department',
+            'designation',
             'employee_id',
             'password1',
             'password2',
@@ -26,37 +28,53 @@ class StudentRegistration(UserCreationForm):
         model = Account
         fields = (
             'email',
-            'username',
+            'fullname',
+            'department',
             'student_id',
             'password1',
             'password2',
         )
 
 
-class StudentEditProfileForm(forms.ModelForm):
+class StudentEditProfileForm(UserChangeForm):
     class Meta:
         model = Account
         fields = (
             'email',
-            'username',
+            'fullname',
             'student_id',
-        )
-
-
-class StudentProfileForm(forms.ModelForm):
-    class Meta:
-        model = StudentProfile
-        fields = (
-            'full_name',
-            'phone',
-            'address',
-            'date_of_birth',
-            'blood_group',
-            'gender',
             'department',
-            'religion',
-            'image'
+            'image',
         )
+
+
+class TeacherEditProfileForm(UserChangeForm):
+    class Meta:
+        model = Account
+        fields = (
+            'email',
+            'fullname',
+            'employee_id',
+            'designation',
+            'department',
+            'image',
+        )
+
+
+#
+# class StudentProfileForm(forms.ModelForm):
+#     class Meta:
+#         model = StudentProfile
+#         fields = (
+#             'phone',
+#             'address',
+#             'date_of_birth',
+#             'blood_group',
+#             'gender',
+#             'department',
+#             'religion',
+#             'image'
+#         )
 
 
 class StudentLoginForm(forms.Form):

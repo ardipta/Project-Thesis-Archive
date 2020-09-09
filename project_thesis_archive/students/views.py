@@ -5,12 +5,12 @@ from django.contrib.auth.decorators import login_required
 from students.models import ProjectDocument, ThesisPaper
 
 
-def student_choice(request):
+def student_dashboard(request):
     if not request.user.is_authenticated:
         messages.info(request, 'You need to login first!!')
         return redirect("student_login")
 
-    return render(request, 'dashboard/student_dashboard_choice.html')
+    return render(request, 'dashboard/student_dashboard.html')
 
 
 def project_upload(request):
@@ -72,23 +72,8 @@ def thesis_upload(request):
 
 @login_required(login_url='student_login')
 def project_show(request, project_name):
-    # if not request.user.is_authenticated:
-    #     messages.info(request, 'You need to login first!!')
-    #     return redirect("student_login")
     project = ProjectDocument.objects.get(project_name=project_name)
     context = {
         'project': project
     }
     return render(request, 'dashboard/view_project_details.html', context)
-
-# @login_required(login_url='student_login')
-# def thesis_show(request, thesis_title):
-#     # if not request.user.is_authenticated:
-#     #     messages.warning(request, 'You need to login first')
-#     #     return redirect("student_login")
-#     thesis = ThesisPaper.objects.get(thesis_title=thesis_title)
-#     print(thesis)
-#     context = {
-#         'thesis': thesis
-#     }
-#     return render(request, 'dashboard/view_thesis_details.html', context)
