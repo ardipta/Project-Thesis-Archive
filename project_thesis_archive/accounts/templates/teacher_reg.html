@@ -36,21 +36,19 @@
                     </div>
                   {% endif %}
                  {% if messages %}
-                    <ul class="messages">
-                        {% for message in messages %}
-                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                                        <h2><span style="color: greenyellow">Registration Successful </span><a href="{% url 'teacher_login' %}">Click here </a><span style="color: greenyellow">to login.</span></h2>
-                                    {% else %}
-                                        <span style="color: #CC3434">{{ message }}</span>
-                                    {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul><br>
+                    {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                            <h5 style="text-align: left"><span style="color: aqua">Registration Successful </span><a href="{% url 'teacher_login' %}">Click here </a><span style="color: aqua">to login.</span></h5>
+                        {% else %}
+                            <span style="color: #CC3434">{{ message }}</span>
+                        {% endif %}
+                    {% endfor %}
                 {% endif %}
                 <br>
-                <input class="text" type="text" name="username" placeholder="Username" required="">
+                <input class="text" type="text" name="fullname" placeholder="Full Name" required="">
                 <input class="text email" type="email" name="email" placeholder="Email" required="">
+                <input class="text email" type="text" name="department" placeholder="Department" required="">
+                <input class="text" type="text" name="designation" placeholder="Designation" required="">
                 <input class="text number" type="text"  name="employee_id" Placeholder="Employee ID" required=""/>
                 <input class="text" type="password" name="password1" placeholder="Password" required="">
                 <span class="help-block" style="color:aqua;">* Password contains at least 8 character!</span><br>
