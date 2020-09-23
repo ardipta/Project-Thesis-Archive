@@ -32,6 +32,11 @@
 				<h1>Welcome to</h1>
 				<h2>Project-Thesis Archive System</h2>
 				<p>All the projects and thesis files in one system. </p>
+                {% if not request.user.is_authenticated %}
+                    <a class="btn btn btn-outline-light" href="{% url 'student_login'  %}"><strong><h3>Upload here</h3></strong></a>
+                {% else %}
+                    <a class="btn btn btn-outline-light" href="{% url 'student_dashboard'  %}"><strong><h3>Upload here</h3></strong></a>
+                {% endif %}
 			</div>
 		</div>
 		<div class="register-right">
@@ -55,44 +60,49 @@
 </section>
 <!-- //section -->
 <div class="container">
+    <div class="col-lg-12 col-md-12">
+        <h4 style="color: white; text-align: center">Take a look some available projects..</h4>
+        <hr>
+    </div>
+</div>
+<div class="container">
     <div class="row">
+    {% if projects %}
         {% for project in projects %}
-        <div class="col-lg-4 col-md-4">
-            <h3 style="text-align: center; color: white" >Projects</h3>
-            <div class="card" style="width: 18">
+        <div class="col-lg-3 col-md-3">
+            <div class="card" style="width: auto">
               <img class="card-img-top" src="{{ project.thumbnail.url }}" alt="">
               <div class="card-body bg-dark">
-                <h5 class="card-title text-white"> {{ project.project_name }} </h5>
-                <p class="card-text text-white">{{ project.description }}</p>
-                <a href="{% url 'view_project_details' %}" class="btn  btn-secondary">View Details</a>
+                  <h5 class="card-title text-white"><b>Project Name:</b><br> {{ project.project_name }} </h5>
+                <p class="card-text text-white"><b>Description:</b><br>{{ project.description }}</p>
+                <a href="{% url 'project_show' project.project_name %}" class="btn  btn-secondary">View Details</a>
               </div>
             </div>
         </div>
         {% endfor %}
-        {% for thes in thesis %}
-        <div class="col-lg-4 col-md-4">
-            <h3 style="text-align: center; color: white" >Thesis Paper</h3>
-           <div class="card" style="width: 18">
-              <img class="card-img-top" src="{{ thes.thumbnail.url }}" alt="">
-              <div class="card-body bg-dark">
-                <h5 class="card-title text-white">{{ thes.thesis_title }}</h5>
-                <p class="card-text text-white">{{ thes.description }}</p>
-                <a href="{% url 'view_thesis_details' %}" class="btn  btn-secondary">View Details</a>
-              </div>
-            </div>
+    {% else %}
+        <div class="col-lg-12 col-md-12">
+            <H3 class="text-center" style="color: white"> No Projects Available!!</H3>
         </div>
-        {% endfor %}
-
-{#        <div class="col-lg-4 col-md-4">#}
-{#           <div class="card" style="width: 18rem;">#}
-{#              <img class="card-img-top" src="{% static 'images/student.jpg' %}" alt="Card image cap">#}
+    {% endif %}
+{#    {% if thesis %}#}
+{#        {% for thes in thesis %}#}
+{#        <div class="col-lg-3 col-md-3">#}
+{#           <div class="card" style="width: auto">#}
+{#              <img class="card-img-top" src="{{ thes.thumbnail.url }}" alt="">#}
 {#              <div class="card-body bg-dark">#}
-{#                <h5 class="card-title text-white">Card title</h5>#}
-{#                <p class="card-text text-white">Some quick example text to build on the card title and make up the bulk of the card's content.</p>#}
-{#                <a href="#" class="btn btn-secondary">Go somewhere</a>#}
+{#                  <h5 class="card-title text-white"><b><u>Thesis Title:</u></b><br> {{ thes.thesis_title }}</h5>#}
+{#                <p class="card-text text-white"><b><u>Description:</u></b><br>{{ thes.description }}</p>#}
+{#                <a href="{% url 'thesis_show' thes.thesis_title %}"  class="btn  btn-secondary">View Details</a>#}
 {#              </div>#}
 {#            </div>#}
 {#        </div>#}
+{#        {% endfor %}#}
+{#    {% else %}#}
+{#        <div class="col-lg-12 col-md-12">#}
+{#            <H3 class="text-center" style="color: white"> No Thesis Available!!</H3>#}
+{#        </div>#}
+{#    {% endif %}#}
     </div>
     </div>
 	<!-- copyright -->

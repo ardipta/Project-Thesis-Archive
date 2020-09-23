@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import authenticate
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from accounts.models import Account
 
@@ -10,7 +10,15 @@ class TeacherRegistration(UserCreationForm):
 
     class Meta:
         model = Account
-        fields = ('email', 'username', 'employee_id', 'password1', 'password2',)
+        fields = (
+            'email',
+            'fullname',
+            'department',
+            'designation',
+            'employee_id',
+            'password1',
+            'password2',
+        )
 
 
 class StudentRegistration(UserCreationForm):
@@ -18,13 +26,64 @@ class StudentRegistration(UserCreationForm):
 
     class Meta:
         model = Account
-        fields = ('email', 'username', 'student_id', 'password1', 'password2',)
+        fields = (
+            'email',
+            'fullname',
+            'department',
+            'student_id',
+            'password1',
+            'password2',
+        )
+
+
+class StudentEditProfileForm(UserChangeForm):
+    class Meta:
+        model = Account
+        fields = (
+            'email',
+            'fullname',
+            'student_id',
+            'department',
+            'image',
+        )
+
+
+class TeacherEditProfileForm(UserChangeForm):
+    class Meta:
+        model = Account
+        fields = (
+            'email',
+            'fullname',
+            'employee_id',
+            'designation',
+            'department',
+            'image',
+        )
+
+
+#
+# class StudentProfileForm(forms.ModelForm):
+#     class Meta:
+#         model = StudentProfile
+#         fields = (
+#             'phone',
+#             'address',
+#             'date_of_birth',
+#             'blood_group',
+#             'gender',
+#             'department',
+#             'religion',
+#             'image'
+#         )
 
 
 class StudentLoginForm(forms.Form):
     class Meta:
         model = Account
-        fields = ('email', 'password')
+        fields = (
+            'email',
+            'password'
+        )
 
         def clean(self):
             if self.is_valid():
@@ -37,7 +96,10 @@ class StudentLoginForm(forms.Form):
 class TeacherLoginForm(forms.Form):
     class Meta:
         model = Account
-        fields = ('email', 'password')
+        fields = (
+            'email',
+            'password'
+        )
 
         def clean(self):
             if self.is_valid():

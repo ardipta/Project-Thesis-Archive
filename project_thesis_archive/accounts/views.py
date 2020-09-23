@@ -1,7 +1,13 @@
-from django.contrib import messages
+from django.contrib import messages, auth
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from accounts.forms import TeacherRegistration, StudentRegistration, StudentLoginForm, TeacherLoginForm
+from accounts.forms import TeacherRegistration, StudentRegistration, StudentLoginForm, TeacherLoginForm, \
+    StudentEditProfileForm, TeacherEditProfileForm
 from django.contrib.auth import login, authenticate
+from django.urls import reverse
+from django.conf import settings
+
+User = settings.AUTH_PROFILE_MODULE
 
 
 def teacher_reg_view(request):
@@ -10,12 +16,8 @@ def teacher_reg_view(request):
         form = TeacherRegistration(request.POST)
         if form.is_valid():
             form.save()
-            # email = form.cleaned_data.get('email')
-            # raw_password = form.cleaned_data.get('password1')
-            # account = authenticate(email=email, password=raw_password)
-            # login(request, account)
             messages.success(request, 'Registration Successful')
-            return redirect('teacher_login')
+            return redirect('teacher_reg')
         else:
             context['teacher_reg_form'] = form
 
@@ -31,12 +33,8 @@ def student_reg_view(request):
         form = StudentRegistration(request.POST)
         if form.is_valid():
             form.save()
-            # email = form.cleaned_data.get('email')
-            # raw_password = form.cleaned_data.get('password1')
-            # account = authenticate(email=email, password=raw_password)
-            # login(request, account)
             messages.success(request, 'Registration Successful')
-            return redirect('student_login')
+            return redirect('student_reg')
         else:
             context['student_reg_form'] = form
 
@@ -48,20 +46,19 @@ def student_reg_view(request):
 
 def student_login_view(request):
     context = {}
-    user = request.user
-    if user.is_authenticated:
-        return redirect("index")
-
     if request.POST:
         form = StudentLoginForm(request.POST)
         if form.is_valid():
             email = request.POST['email']
             password = request.POST['password']
             user = authenticate(email=email, password=password)
-
             if user:
                 login(request, user)
-                return redirect('student_dashboard')
+                messages.success(request, 'Login Successful')
+                next_url = request.GET.get('next', 'student_dashboard')
+                return redirect(next_url)
+            else:
+                messages.error(request, 'Wrong Credentials!!')
     else:
         form = StudentLoginForm()
 
@@ -71,10 +68,6 @@ def student_login_view(request):
 
 def teacher_login_view(request):
     context = {}
-    user = request.user
-    if user.is_authenticated:
-        return redirect("index")
-
     if request.POST:
         form = TeacherLoginForm(request.POST)
         if form.is_valid():
@@ -83,18 +76,54 @@ def teacher_login_view(request):
             user = authenticate(email=email, password=password)
             if user:
                 login(request, user)
-                return redirect("student_dashboard")
+                messages.success(request, 'Login Successful')
+                return redirect("teacher_dashboard")
+            else:
+                messages.error(request, 'Wrong Credentials!!')
     else:
         form = TeacherLoginForm()
 
-    context['teacher_login_form'] = form
+    context['teacher_login'] = form
     return render(request, 'teacher_login.html', context)
 
-# @login_required
-# def user_details(request):
-#     user = Account.objects.all()
-#     context = {
-#         'user': user
-#     }
-#     template = 'partials/_sidebar.html'
-#     return render(request, template, context)
+
+def edit_profile_student(request):
+    if request.method == 'POST':
+        form = StudentEditProfileForm(request.POST, request.FILES, instance=request.user)
+        form.actual_user = request.user
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile update successful')
+            return HttpResponseRedirect(reverse('edit_profile_student'))
+    else:
+        form = StudentEditProfileForm(instance=request.user)
+        context = {
+            'form': form,
+        }
+        return render(request, 'dashboard/edit_profile_student.html', context)
+
+
+def edit_profile_teacher(request):
+    if request.method == 'POST':
+        form = TeacherEditProfileForm(request.POST, request.FILES, instance=request.user)
+        form.actual_user = request.user
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Profile update successful')
+            return HttpResponseRedirect(reverse('edit_profile_teacher'))
+    else:
+        form = TeacherEditProfileForm(instance=request.user)
+        context = {
+            'form': form,
+        }
+        return render(request, 'dashboard/edit_profile_teacher.html', context)
+
+
+def student_logout(request):
+    auth.logout(request)
+    return redirect('index')
+
+
+def teacher_logout(request):
+    auth.logout(request)
+    return redirect('index')

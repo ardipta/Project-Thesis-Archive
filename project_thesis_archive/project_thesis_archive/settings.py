@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'accounts.apps.AccountsConfig',
     'students.apps.StudentsConfig',
+    'teachers.apps.TeachersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -63,12 +64,14 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
         },
     },
 ]
 
 AUTH_USER_MODEL = 'accounts.Account'
+AUTH_PROFILE_MODULE = "accounts.UserProfile"
 
 WSGI_APPLICATION = 'project_thesis_archive.wsgi.application'
 
@@ -115,7 +118,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [

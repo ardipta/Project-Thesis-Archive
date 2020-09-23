@@ -1,19 +1,27 @@
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.contrib import messages, auth
-from django.urls import reverse
-
-from .models import ProjectDocument, ThesisPaper
-from django.shortcuts import redirect
-from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from students.models import ProjectDocument, ThesisPaper
 
 
-def student_choice(request):
-    return render(request, 'dashboard/student_dashboard_choice.html')
+def student_dashboard(request):
+    if not request.user.is_authenticated:
+        messages.info(request, 'You need to login first!!')
+        return redirect("student_login")
+
+    return render(request, 'dashboard/student_dashboard.html')
 
 
 def project_upload(request):
+    if not request.user.is_authenticated:
+        messages.info(request, 'You need to login first!!')
+        return redirect("student_login")
+
     if request.method == 'POST':
+        username = request.POST["username"]
+        email = request.POST["email"]
+        student_id = request.POST["student_id"]
         project_name = request.POST["project_name"]
         semester_name = request.POST["semester_name"]
         course_name = request.POST["course_name"]
@@ -23,9 +31,10 @@ def project_upload(request):
         project_file = request.FILES['projectFile']
         document = request.FILES['docFile']
         thumbnail = request.FILES['thumbnail']
-        obj = ProjectDocument.objects.create(project_name=project_name, semester_name=semester_name, document=document,
-                                             thumbnail=thumbnail,
-                                             course_name=course_name, course_code=course_code, section=section,
+        obj = ProjectDocument.objects.create(username=username, email=email, student_id=student_id,
+                                             project_name=project_name, semester_name=semester_name,
+                                             document=document, thumbnail=thumbnail, course_name=course_name,
+                                             course_code=course_code, section=section,
                                              description=description, project_file=project_file)
         obj.save()
         messages.success(request, 'Upload Successful')
@@ -34,7 +43,14 @@ def project_upload(request):
 
 
 def thesis_upload(request):
+    if not request.user.is_authenticated:
+        messages.info(request, 'You need to login first!!')
+        return redirect("student_login")
+
     if request.method == 'POST':
+        username = request.POST["username"]
+        email = request.POST["email"]
+        student_id = request.POST["student_id"]
         thesis_title = request.POST["thesis_title"]
         semester_name = request.POST["semester_name"]
         course_name = request.POST["course_name"]
@@ -43,7 +59,8 @@ def thesis_upload(request):
         description = request.POST['desc']
         thesis_file = request.FILES['thesis_up']
         thumbnail = request.FILES['thumbnail']
-        obj = ThesisPaper.objects.create(thesis_title=thesis_title, semester_name=semester_name,
+        obj = ThesisPaper.objects.create(username=username, email=email, student_id=student_id,
+                                         thesis_title=thesis_title, semester_name=semester_name,
                                          thesis_file=thesis_file, thumbnail=thumbnail,
                                          course_name=course_name, course_code=course_code, section=section,
                                          description=description)
@@ -53,31 +70,10 @@ def thesis_upload(request):
     return render(request, 'dashboard/thesis_upload.html')
 
 
-def view_project_details(request):
-    if not request.user.is_authenticated:
-        messages.warning(request, 'You need to login first')
-        return redirect("student_login")
-    projects = ProjectDocument.objects.all()
-    print(projects)
+@login_required(login_url='student_login')
+def project_show(request, project_name):
+    project = ProjectDocument.objects.get(project_name=project_name)
     context = {
-        'projects': projects,
+        'project': project
     }
     return render(request, 'dashboard/view_project_details.html', context)
-
-
-def view_thesis_details(request):
-    if not request.user.is_authenticated:
-        messages.warning(request, 'You need to login first')
-        return redirect("student_login")
-    thesis = ThesisPaper.objects.all()
-    print(thesis)
-    context = {
-        'thesis': thesis,
-    }
-    return render(request, 'dashboard/view_thesis_details.html', context)
-
-
-# def logout(request):
-#     if request.method == "POST":
-#         logout(request)
-#         return HttpResponseRedirect(reverse('index'))
