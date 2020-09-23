@@ -13,7 +13,7 @@ def teacher_dashboard(request):
 
 def project_choice(request):
     if not request.user.is_authenticated:
-        messages.info(request, 'You need to login first!!')
+        messages.info(request, 'You need to login first!')
         return redirect("teacher_login")
 
     return render(request, 'dashboard/choice_for_project.html')
