@@ -6,7 +6,11 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard</title>
+    <title>
+        {% block title %}
+            Teacher
+        {% endblock %}
+    </title>
 
     <!-- Bootstrap core CSS-->
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -32,12 +36,12 @@
           <!-- Navbar Search -->
           <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
+{#              <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">#}
+{#              <div class="input-group-append">#}
+{#                <button class="btn btn-primary" type="button">#}
+{#                  <i class="fas fa-search"></i>#}
+{#                </button>#}
+{#              </div>#}
             </div>
           </form>
         {% include 'partials/_navbar_teacher.html' %}

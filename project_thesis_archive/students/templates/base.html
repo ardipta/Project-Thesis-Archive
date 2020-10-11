@@ -6,8 +6,17 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Dashboard</title>
+    <title>
+        {% block title %}
+            Student
+        {% endblock %}
+    </title>
+    <!-- jquery CDN-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
     <!-- Bootstrap core CSS-->
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
 
@@ -31,14 +40,14 @@
 
           <!-- Navbar Search -->
           <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
-            </div>
+{#            <div class="input-group">#}
+{#              <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">#}
+{#              <div class="input-group-append">#}
+{#                <button class="btn btn-primary" type="button">#}
+{#                  <i class="fas fa-search"></i>#}
+{#                </button>#}
+{#              </div>#}
+{#            </div>#}
           </form>
         {% include 'partials/_navbar.html' %}
     </nav>
@@ -46,7 +55,7 @@
         {% include 'partials/_sidebar.html' %}
       <div id="content-wrapper">
           <div class="container-fluid">
-              {% include 'partials/_dashboard.html' %}
+{#              {% include 'partials/_dashboard.html' %}#}
               {% block content %}{% endblock %}
             <!-- Sticky Footer -->
             <footer class="sticky-footer">
@@ -83,7 +92,6 @@
 {#    </div>#}
 
 
-
 <!-- Bootstrap core JavaScript-->
 <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
@@ -99,6 +107,7 @@
 <!-- Custom scripts for all pages-->
 <script src="{% static 'js/sb-admin.min.js' %}"></script>
 <script src="{% static 'js/app.js' %}"></script>
+{#<script src="{% static 'js/dropdown.js' %}"></script>#}
 
 <!-- Demo scripts for this page-->
 <script src="{% static 'js/demo/datatables-demo.js' %}"></script>

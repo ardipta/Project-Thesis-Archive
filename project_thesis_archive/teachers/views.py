@@ -16,7 +16,19 @@ def project_choice(request):
         messages.info(request, 'You need to login first!!')
         return redirect("teacher_login")
 
-    return render(request, 'dashboard/choice_for_project.html')
+    semester_name = ProjectDocument.objects.all()
+    course_name = ProjectDocument.objects.all()
+    course_code = ProjectDocument.objects.all()
+    section = ProjectDocument.objects.all()
+
+    context = {
+        'semester_name': semester_name,
+        'course_name': course_name,
+        'course_code': course_code,
+        'section': section,
+    }
+
+    return render(request, 'dashboard/choice_for_project.html', context)
 
 
 def thesis_choice(request):
@@ -24,7 +36,18 @@ def thesis_choice(request):
         messages.info(request, 'You need to login first!!')
         return redirect("teacher_login")
 
-    return render(request, 'dashboard/choice_for_thesis.html')
+    semester_name = ThesisPaper.objects.all()
+    course_name = ThesisPaper.objects.all()
+    course_code = ThesisPaper.objects.all()
+    section = ThesisPaper.objects.all()
+
+    context = {
+        'semester_name': semester_name,
+        'course_name': course_name,
+        'course_code': course_code,
+        'section': section,
+    }
+    return render(request, 'dashboard/choice_for_thesis.html', context)
 
 
 def thesis_files(request):
