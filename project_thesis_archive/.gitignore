@@ -5,6 +5,7 @@
 __pycache__/
 ptaenv
 firstenv
+media
 blog
 .idea
 db.sqlite3

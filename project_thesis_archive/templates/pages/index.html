@@ -23,6 +23,11 @@
 	<div class="header">
 		<div class="logo">
 			<a href="{% url 'index' %}">Project-Thesis Archive</a>
+            {% if request.user.is_authenticated %}
+                <span style="font-size: large; color: white; padding-left: 40px">
+                    Logged as [ {{ user.fullname }} ]
+                </span>
+            {% endif %}
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -32,10 +37,12 @@
 				<h1>Welcome to</h1>
 				<h2>Project-Thesis Archive System</h2>
 				<p>All the projects and thesis files in one system. </p>
-                {% if not request.user.is_authenticated %}
-                    <a class="btn btn btn-outline-light" href="{% url 'student_login'  %}"><strong><h3>Upload here</h3></strong></a>
-                {% else %}
-                    <a class="btn btn btn-outline-light" href="{% url 'student_dashboard'  %}"><strong><h3>Upload here</h3></strong></a>
+                {% if request.user.is_authenticated %}
+                    {% if request.user.role == 'student' %}
+                        <a class="btn btn btn-outline-light" href="{% url 'student_dashboard'  %}"><strong><h3>Go to dashboard</h3></strong></a>
+                    {% elif request.user.role == 'teacher' %}
+                        <a class="btn btn btn-outline-light" href="{% url 'teacher_dashboard'  %}"><strong><h3>Go to dashboard</h3></strong></a>
+                    {% endif %}
                 {% endif %}
 			</div>
 		</div>
@@ -46,13 +53,25 @@
             <div class="register-in">
 				<a href="{% url 'student_reg' %}">Student register here »</a>
 			</div>
-			<div class="register-in">
-				<a href="{% url 'student_login' %}">Student login here »</a>
-			</div>
+            {% if request.user.role == 'student' %}
+                <div class="register-in">
+                    <a href="{% url 'student_logout' %}">Logout here »</a>
+                </div>
+            {% else %}
+                <div class="register-in">
+                    <a href="{% url 'student_login' %}">Student login here »</a>
+                </div>
+            {% endif %}
 
-			<div class="register-in middle">
-				<a href="{% url 'teacher_login' %}">Teacher login here »</a>
-			</div>
+            {% if request.user.role == 'teacher' %}
+                <div class="register-in">
+                    <a href="{% url 'teacher_logout' %}">Logout here »</a>
+                </div>
+            {% else %}
+                <div class="register-in middle">
+                    <a href="{% url 'teacher_login' %}">Teacher login here »</a>
+                </div>
+            {% endif %}
 			<div class="clear"> </div>
 		</div>
 	<div class="clear"> </div>
@@ -63,28 +82,63 @@
     <div class="col-lg-12 col-md-12">
         <h4 style="color: white; text-align: center">Take a look some available projects..</h4>
         <hr>
+        <form method="GET" action="{% url 'index' %}">
+            <div class="col-lg-12 col-md-12 col-sm-12 ">
+                <div class="input-group">
+                    <input type="text" name="title" value="{{ get_method.title }}" class="form-control col-lg-6 col-md-5" placeholder="Search Project By Title" aria-label="Search" aria-describedby="basic-addon2">
+                    <input type="text" name="keywords" value="{{ get_method.keywords }}" class="form-control col-lg-6 col-md-5" placeholder="Search Project By Keyword" aria-label="Search" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                  </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <div class="container">
     <div class="row">
-    {% if projects %}
-        {% for project in projects %}
-        <div class="col-lg-3 col-md-3">
+
+    {% if request.method == 'GET' %}
+        {% if projects_files %}
+        {% for project in projects_files %}
+        <div class="col-lg-3 col-md-3" style="padding-top: 20px">
             <div class="card" style="width: auto">
-              <img class="card-img-top" src="{{ project.thumbnail.url }}" alt="">
+              <img class="card-img-top" height="160px" src="{{ project.thumbnail.url }}" alt="">
               <div class="card-body bg-dark">
                   <h5 class="card-title text-white"><b>Project Name:</b><br> {{ project.project_name }} </h5>
-                <p class="card-text text-white"><b>Description:</b><br>{{ project.description }}</p>
+                <p class="card-text text-white" style="text-align: justify"><b>Description:</b><br>{{ project.description }}</p>
                 <a href="{% url 'project_show' project.project_name %}" class="btn  btn-secondary">View Details</a>
               </div>
             </div>
         </div>
         {% endfor %}
+        {% else %}
+            <div class="col-lg-12 col-md-12">
+                <H3 class="text-center" style="color: white"> No Projects Available!!</H3>
+            </div>
+        {% endif %}
     {% else %}
-        <div class="col-lg-12 col-md-12">
-            <H3 class="text-center" style="color: white"> No Projects Available!!</H3>
+        {% if projects %}
+        {% for project in projects %}
+        <div class="col-lg-3 col-md-3" style="padding-top: 20px">
+            <div class="card" style="width: auto">
+              <img class="card-img-top" height="160px" src="{{ project.thumbnail.url }}" alt="">
+              <div class="card-body bg-dark">
+                  <h5 class="card-title text-white"><b>Project Name:</b><br> {{ project.project_name }} </h5>
+                <p class="card-text text-white" style="text-align: justify"><b>Description:</b><br>{{ project.description }}</p>
+                <a href="{% url 'project_show' project.project_name %}" class="btn  btn-secondary">View Details</a>
+              </div>
+            </div>
         </div>
+        {% endfor %}
+        {% else %}
+            <div class="col-lg-12 col-md-12">
+                <H3 class="text-center" style="color: white"> No Projects Available!!</H3>
+            </div>
+        {% endif %}
     {% endif %}
+
+
 {#    {% if thesis %}#}
 {#        {% for thes in thesis %}#}
 {#        <div class="col-lg-3 col-md-3">#}

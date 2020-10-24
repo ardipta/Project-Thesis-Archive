@@ -19,7 +19,6 @@ class MyAccountManager(BaseUserManager):
             student_id=student_id,
             image=image,
         )
-
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -44,12 +43,13 @@ class MyAccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser):
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
-    fullname = models.CharField(max_length=255, null=True)
-    department = models.CharField(max_length=255, null=True)
-    designation = models.CharField(max_length=255, null=True)
-    employee_id = models.CharField(max_length=30, null=True, unique=True)
-    student_id = models.CharField(max_length=30, null=True, unique=True)
-    image = models.FileField(upload_to='images/%Y/%m/%d/', null=True)
+    fullname = models.CharField(max_length=255, null=True, blank=True)
+    department = models.CharField(max_length=255, null=True, blank=True)
+    designation = models.CharField(max_length=255, null=True, blank=True)
+    employee_id = models.CharField(max_length=30, null=True, unique=True, blank=True)
+    student_id = models.CharField(max_length=30, null=True, unique=True, blank=True)
+    image = models.FileField(upload_to='images/%Y/%m/%d/', null=True, blank=True)
+    role = models.CharField(max_length=255, null=True, blank=True)
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)
     last_login = models.DateTimeField(verbose_name='last login', auto_now=True)
     is_admin = models.BooleanField(default=False)

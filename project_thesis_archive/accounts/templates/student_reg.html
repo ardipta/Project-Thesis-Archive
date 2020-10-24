@@ -47,13 +47,25 @@
                 <br>
                 <input class="text" type="text" name="fullname" placeholder="Full Name" required="">
                 <input class="text email" type="email" name="email" placeholder="Email" required="">
-                <input class="text" type="text" name="department" placeholder="Department" required="">
+                <input class="text" type="text" name="department" placeholder="Department" autocomplete="off" required="" list="department">
+                <datalist class="form-control col-lg-12 col-md-12 col-sm-12" id="department" hidden>
+                    <option value="Software Engineering"></option>
+                    <option value="Computer Science Engineering"></option>
+                    <option value="Electrical & Electronics Engineering "></option>
+                    <option value="Department of English"></option>
+                    <option value="Environmental Science & Disaster Management"></option>
+                    <option value="Multimedia & Creative Technology"></option>
+                    <option value="Textile Engineering"></option>
+                    <option value=""></option>
+                    <option value=""></option>
+                </datalist>
                 <input class="text number" type="text"  name="student_id" Placeholder="Student ID" required=""/>
                 <input class="text" type="password" name="password1" placeholder="Password" required="">
                 <span class="help-block" style="color:aqua;">* Password contains at least 8 character!</span><br>
                 <span class="help-block" style="color:aqua;">* Password & username can't be similar!</span><br>
                 <span class="help-block" style="color:aqua;">* Password must be a combination of alpha-numeric!</span>
                 <input class="text w3lpass" type="password" name="password2" placeholder="Confirm Password" required="">
+                <input type="hidden" value="student" name="role">
                 <input type="submit" value="SIGNUP">
             </form>
         </div>

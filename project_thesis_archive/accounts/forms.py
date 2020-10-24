@@ -18,6 +18,8 @@ class TeacherRegistration(UserCreationForm):
             'employee_id',
             'password1',
             'password2',
+            'role'
+
         )
 
 
@@ -33,6 +35,8 @@ class StudentRegistration(UserCreationForm):
             'student_id',
             'password1',
             'password2',
+            'role',
+
         )
 
 
@@ -82,7 +86,7 @@ class StudentLoginForm(forms.Form):
         model = Account
         fields = (
             'email',
-            'password'
+            'password',
         )
 
         def clean(self):
