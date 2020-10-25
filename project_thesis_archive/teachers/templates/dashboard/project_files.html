@@ -25,22 +25,22 @@
           <table class="table">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">Student ID</th>
-              <th scope="col">Project Name</th>
-              <th scope="col">Description</th>
-              <th scope="col">Project File</th>
-              <th scope="col">Document</th>
+              <th scope="col" style="width: 15%">Student ID</th>
+              <th scope="col" style="width: 15%">Project Name</th>
+              <th scope="col" style="width: 40%">Description</th>
+              <th scope="col" style="width: 15%">Project File</th>
+              <th scope="col" style="width: 15%">Document</th>
             </tr>
           </thead>
           <tbody>
           {% if projects %}
               {% for project in projects %}
                  <tr>
-                      <td>{{ project.student_id }}</td>
-                      <td>{{ project.project_name }}</td>
-                      <td>{{ project.description }}</td>
-                      <td><a href="{{ project.project_file.url }}">Download</a></td>
-                      <td><a href="{{ project.document.url }}">Download</a></td>
+                      <td style="width: 15%">{{ project.student_id }}</td>
+                      <td style="width: 15%">{{ project.project_name }}</td>
+                      <td style="width: 40%; text-align: justify">{{ project.description }}</td>
+                      <td style="width: 15%"><a href="{{ project.project_file.url }}">Download</a></td>
+                      <td style="width: 15%"><a href="{{ project.document.url }}">Download</a></td>
                  </tr>
               {% endfor %}
           {% else %}

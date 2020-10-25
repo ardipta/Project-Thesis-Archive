@@ -25,23 +25,27 @@
           <table class="table">
           <thead class="thead-dark">
             <tr>
-              <th scope="col">Student ID</th>
-              <th scope="col">Thesis Title</th>
-              <th scope="col">Description</th>
-              <th scope="col">Thesis File</th>
-              <th scope="col">Document</th>
+              <th scope="col" style="width: 15%">Student ID</th>
+              <th scope="col" style="width: 15%">Thesis Title</th>
+              <th scope="col" style="width: 40%">Description</th>
+              <th scope="col" style="width: 15%">Thesis File</th>
+              <th scope="col" style="width: 15%">Document</th>
             </tr>
           </thead>
           <tbody>
-          {% for thesis in theses %}
-             <tr>
-                  <td>{{ thesis.student_id }}</td>
-                  <td>{{ thesis.thesis_title }}</td>
-                  <td>{{ thesis.description }}</td>
-                  <td><a href="{{ thesis.thesis_file.url }}">Download</a></td>
-                  <td><a href="{{ thesis.document.url }}">Download</a></td>
-             </tr>
-          {% endfor %}
+          {% if theses %}
+              {% for thesis in theses %}
+                 <tr>
+                      <td style="width: 15%">{{ thesis.student_id }}</td>
+                      <td style="width: 15%">{{ thesis.thesis_title }}</td>
+                      <td style="width: 40%">{{ thesis.description }}</td>
+                      <td style="width: 15%"><a href="{{ thesis.thesis_file.url }}">Download</a></td>
+                      <td style="width: 15%"><a href="{{ thesis.document.url }}">Download</a></td>
+                 </tr>
+              {% endfor %}
+          {% else %}
+              <h3>No data found. <a href="{% url 'thesis_choice' %}">click here</a> for search again!</h3>
+          {% endif %}
           </tbody>
         </table>
 {% endblock %}
