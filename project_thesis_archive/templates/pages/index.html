@@ -24,7 +24,7 @@
 		<div class="logo">
 			<a href="{% url 'index' %}">Project-Thesis Archive</a>
             {% if request.user.is_authenticated %}
-                <span style="font-size: large; color: white; padding-left: 40px">
+                <span style="color: white; font-size: large; padding-left: 40px" >
                     Logged as [ {{ user.fullname }} ]
                 </span>
             {% endif %}
@@ -157,10 +157,42 @@
 {#            <H3 class="text-center" style="color: white"> No Thesis Available!!</H3>#}
 {#        </div>#}
 {#    {% endif %}#}
+        <div class="col-lg-12 col-md-12" style="padding-top: 40px">
+            <h3 style="color: white; text-align: center"><b>Developed By:</b></h3>
+        </div>
+        <div class="col-lg-4 col-md-4" style="padding-top: 10px">
+            <div class="card" style="width: auto">
+              <img class="card-img-top" height="300px" src="{% static 'images/shuvo.jpeg' %}" alt="">
+              <div class="card-body bg-dark">
+                  <h5 class="card-title text-white"><b>Name:</b> Mr. Md. Shohel Arman</h5>
+                <p class="card-text text-white"><b>Senior Lecturer, Department of Software Engineering, DIU</b></p>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4" style="padding-top: 10px">
+            <div class="card" style="width: auto">
+              <img class="card-img-top" height="300px" src="{% static 'images/dipto.jpg' %}" alt="">
+              <div class="card-body bg-dark">
+                  <h5 class="card-title text-white"><b>Name:</b> Md. Ashiqur Rahaman</h5>
+                <p class="card-text text-white"><b>Student, Department of Software Engineering, DIU</b></p>
+              </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4" style="padding-top: 10px">
+            <div class="card" style="width: auto">
+              <img class="card-img-top" height="300px" src="{% static 'images/bari.jpeg' %}" alt="">
+              <div class="card-body bg-dark">
+                  <h5 class="card-title text-white"><b>Name:</b> Khondoker Khademul Bari</h5>
+                <p class="card-text text-white"><b>Software Developer at Belasea BD | Graduate in Software Engineering, DIU</b></p>
+              </div>
+            </div>
+        </div>
     </div>
     </div>
+    <hr>
+    <!-- //copyright -->
+        <p class="agile-copyright">© 2020 Department of Software Engineering,Daffodil International University.</p>
 	<!-- copyright -->
-	<p class="agile-copyright">© 2020 Department of Software Engineering,Daffodil International University.</p>
-	<!-- //copyright -->
+
 </body>
 </html>
