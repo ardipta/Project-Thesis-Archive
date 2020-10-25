@@ -7,6 +7,8 @@ def teacher_dashboard(request):
     if not request.user.is_authenticated:
         messages.info(request, 'You need to login first!!')
         return redirect("teacher_login")
+    if not request.user.role == 'teacher':
+        return redirect("warning")
 
     return render(request, 'dashboard/teacher_dashboard.html')
 
@@ -15,6 +17,8 @@ def project_choice(request):
     if not request.user.is_authenticated:
         messages.info(request, 'You need to login first!!')
         return redirect("teacher_login")
+    if not request.user.role == 'teacher':
+        return redirect("warning")
 
     semester_name = ProjectDocument.objects.all()
     course_name = ProjectDocument.objects.all()
@@ -35,6 +39,8 @@ def thesis_choice(request):
     if not request.user.is_authenticated:
         messages.info(request, 'You need to login first!!')
         return redirect("teacher_login")
+    if not request.user.role == 'teacher':
+        return redirect("warning")
 
     semester_name = ThesisPaper.objects.all()
     course_name = ThesisPaper.objects.all()
@@ -54,6 +60,8 @@ def thesis_files(request):
     if not request.user.is_authenticated:
         messages.info(request, 'You need to login first!!')
         return redirect("teacher_login")
+    if not request.user.role == 'teacher':
+        return redirect("warning")
 
     get_method = request.GET.copy()
     semester_name = get_method.get('semester_name')
@@ -101,6 +109,8 @@ def project_files(request):
     if not request.user.is_authenticated:
         messages.info(request, 'You need to login first!!')
         return redirect("teacher_login")
+    if not request.user.role == 'teacher':
+        return redirect("warning")
 
     get_method = request.GET.copy()
     semester_name = get_method.get('semester_name')

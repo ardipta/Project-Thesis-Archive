@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import authenticate
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, UserChangeForm
 
 from accounts.models import Account
 
@@ -111,3 +111,23 @@ class TeacherLoginForm(forms.Form):
                 password = self.cleaned_data['password']
                 if not authenticate(email=email, password=password):
                     raise forms.ValidationError("Invalid login")
+
+
+class TeacherPassChangeForm(PasswordChangeForm):
+    class Meta:
+        model = Account
+        fields = (
+            'ex-pass',
+            'new-pass1',
+            'new-pass2',
+        )
+
+
+class StudentPassChangeForm(PasswordChangeForm):
+    class Meta:
+        model = Account
+        fields = (
+            'ex-pass',
+            'new-pass1',
+            'new-pass2',
+        )

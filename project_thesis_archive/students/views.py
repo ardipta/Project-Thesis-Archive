@@ -9,6 +9,8 @@ def student_dashboard(request):
     if not request.user.is_authenticated:
         messages.info(request, 'You need to login first!!')
         return redirect("student_login")
+    if not request.user.role == 'student':
+        return redirect("warning")
 
     return render(request, 'dashboard/student_dashboard.html')
 
@@ -17,6 +19,8 @@ def project_upload(request):
     if not request.user.is_authenticated:
         messages.info(request, 'You need to login first!!')
         return redirect("student_login")
+    if not request.user.role == 'student':
+        return redirect("warning")
 
     if request.method == 'POST':
         username = request.POST["username"]
@@ -46,6 +50,8 @@ def thesis_upload(request):
     if not request.user.is_authenticated:
         messages.info(request, 'You need to login first!!')
         return redirect("student_login")
+    if not request.user.role == 'student':
+        return redirect("warning")
 
     if request.method == 'POST':
         username = request.POST["username"]

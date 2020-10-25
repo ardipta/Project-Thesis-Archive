@@ -1,11 +1,20 @@
 from django.contrib import messages, auth
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from accounts.forms import TeacherRegistration, StudentRegistration, StudentLoginForm, TeacherLoginForm, \
-    StudentEditProfileForm, TeacherEditProfileForm
+from accounts.forms import (
+    TeacherRegistration,
+    StudentRegistration,
+    StudentLoginForm,
+    TeacherLoginForm,
+    StudentEditProfileForm,
+    TeacherEditProfileForm,
+    TeacherPassChangeForm,
+    StudentPassChangeForm
+)
 from django.contrib.auth import login, authenticate
 from django.urls import reverse
 from django.conf import settings
+from django.contrib.auth import update_session_auth_hash
 
 User = settings.AUTH_PROFILE_MODULE
 
@@ -117,6 +126,52 @@ def edit_profile_teacher(request):
             'form': form,
         }
         return render(request, 'dashboard/edit_profile_teacher.html', context)
+
+
+def change_password_teacher(request):
+    if request.method == 'POST':
+        form = TeacherPassChangeForm(data=request.POST, user=request.user)
+
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, 'Password Changed Successful!')
+            return HttpResponseRedirect(reverse('change_password_teacher'))
+        else:
+            messages.error(request,
+                           "Something went wrong! Password don't matched or can't reached the password criteria!")
+            return HttpResponseRedirect(reverse('change_password_teacher'))
+    else:
+        form = TeacherPassChangeForm(user=request.user)
+        context = {
+            'form': form,
+        }
+        return render(request, 'dashboard/change_password_teacher.html', context)
+
+
+def change_password_student(request):
+    if request.method == 'POST':
+        form = StudentPassChangeForm(data=request.POST, user=request.user)
+
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, 'Password Changed Successful!')
+            return HttpResponseRedirect(reverse('change_password_student'))
+        else:
+            messages.error(request,
+                           "Something went wrong! Password don't matched or can't reached the password criteria!")
+            return HttpResponseRedirect(reverse('change_password_student'))
+    else:
+        form = StudentPassChangeForm(user=request.user)
+        context = {
+            'form': form,
+        }
+        return render(request, 'dashboard/change_password_student.html', context)
+
+
+def warning(request):
+    return render(request, 'warning.html')
 
 
 def student_logout(request):

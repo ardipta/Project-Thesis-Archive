@@ -10,4 +10,7 @@ urlpatterns = [
     path('teacher_logout/', views.teacher_logout, name='teacher_logout'),
     path('student_dashboard/edit_profile_student/', views.edit_profile_student, name='edit_profile_student'),
     path('teacher_dashboard/edit_profile_teacher/', views.edit_profile_teacher, name='edit_profile_teacher'),
+    path('teacher_dashboard/change_password_teacher/', views.change_password_teacher, name='change_password_teacher'),
+    path('student_dashboard/change_password_student/', views.change_password_student, name='change_password_student'),
+    path('warning/', views.warning, name='warning'),
 ]

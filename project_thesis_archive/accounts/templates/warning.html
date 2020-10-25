@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Warning</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+
+</body>
+</html>
+<div class="col-lg-12 col-md-12 bg-warning" style="padding-top: 320px; height: 660px">
+    {% if request.user.role == 'teacher' %}
+        <h1 class="header text-uppercase  text-danger" style="padding-left: 120px;">You Don't Have Permission to access Student panel!!</h1><br>
+        <div class="col-lg-12" style="padding-left: 650px">
+            <a href="{% url 'teacher_logout' %}" class="btn btn-outline-dark" style="text-decoration: none">Go to homepage</a>
+        </div>
+    {% elif request.user.role == 'student' %}
+        <h1 class="header text-uppercase  text-danger" style="padding-left: 120px;">You Don't Have Permission to access Teacher panel!!</h1><br>
+        <div class="col-lg-12" style="padding-left: 650px">
+            <a href="{% url 'student_logout' %}" class="btn btn-outline-dark" style="text-decoration: none">Go to homepage</a>
+        </div>
+    {% endif %}
+
+</div>
