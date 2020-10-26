@@ -83,3 +83,12 @@ def project_show(request, project_name):
         'project': project
     }
     return render(request, 'dashboard/view_project_details.html', context)
+
+
+# @login_required(login_url='student_login')
+# def thesis_show(request, thesis_title):
+#     theses = ThesisPaper.objects.get(thesis_title=thesis_title)
+#     context = {
+#         'theses': theses
+#     }
+#     return render(request, 'dashboard/view_thesis_details.html', context)
